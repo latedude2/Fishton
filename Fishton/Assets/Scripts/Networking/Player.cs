@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using System;
 
 public class Player : NetworkBehaviour
 {
@@ -10,6 +11,9 @@ public class Player : NetworkBehaviour
 
 
     public NetworkVariable<int> positionIndex = new NetworkVariable<int>(0);
+
+    public delegate void FishEncounterChangeHandler(FishEncounterState previousState, FishEncounterState newState);
+    public FishEncounterChangeHandler onFishEncounterChange { get; set; }
 
     public FishEncounterState currentState { get => _CurrentState.Value; set { _CurrentState.Value = value; } }
 
@@ -30,7 +34,12 @@ public class Player : NetworkBehaviour
             transform.position = PlayerPositioning.instance.SpawnPoints[positionIndex.Value].transform.position;
             transform.rotation = PlayerPositioning.instance.SpawnPoints[positionIndex.Value].transform.rotation;
         }
-        
+        _CurrentState.OnValueChanged += OnStateChanged;
+    }
+
+    private void OnStateChanged(FishEncounterState previousValue, FishEncounterState newValue)
+    {
+        onFishEncounterChange(previousValue, newValue);
     }
 
     public override void OnDestroy()
