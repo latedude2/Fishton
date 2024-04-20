@@ -130,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3475318888767366543}
   - component: {fileID: 9117144023524057659}
+  - component: {fileID: 4841051755756003838}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -165,3 +166,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a3d9aa8b2b987479a7be573bba0d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4841051755756003838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6639482331452022524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54b621354cca444082f235b577b1a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PotentialHitRadius: 2
+  FishingBobPrefab: {fileID: 162038949835725555, guid: 998643825050bd643b6504e9d46632e9,
+    type: 3}
