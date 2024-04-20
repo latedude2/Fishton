@@ -18,16 +18,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] TMP_Text _sessionCodeText;
 
     NetworkLobbyController _lobbyController;
+    CustomRelayUtp _customRelay;
 
     IEnumerator _hostSetUpRoutine;
     IEnumerator _clientSetUpRoutine;
 
     private void Awake()
-    {
-        _lobbyController = new NetworkLobbyController();
-    }
-
-    private void Start()
     {
         //Set initial states
         _sessionCodeContainer.gameObject.SetActive(false);
@@ -37,11 +33,18 @@ public class MainMenu : MonoBehaviour
         _joinButton.onClick.AddListener(() => { _ButtonPressed_Join(); });
         _hostButton.onClick.AddListener(() => { _ButtonPressed_Host(); });
         _playButton.onClick.AddListener(() => { _ButtonPressed_Play(); });
+
+        //_lobbyController = new NetworkLobbyController();
+        _customRelay = GetComponent<CustomRelayUtp>();
+    }
+
+    async void Start()
+    {
+        _customRelay.InitializeUnityService();
     }
 
     private void _ButtonPressed_Join()
     {
-        //_StopHostProcess();
         _ShowSessionCodeInput();
         _HideSessionCode();
     }
@@ -100,13 +103,24 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator _Co_StartHost()
     {
-        Task task = _lobbyController.StartHostProcess();
-        yield return new WaitUntil(()=> task.IsCompleted);
+        /*Task task = _lobbyController.StartHostProcess();
+        yield return new WaitUntil(()=> task.IsCompleted);*/
 
-        _AssignJoinCode(_lobbyController.joinCode);
+        _customRelay.OnSignIn();
+        yield return new WaitForSecondsRealtime(1);
+        _customRelay.OnRegion();
+        yield return new WaitForSecondsRealtime(1);
+        _customRelay.OnAllocate();
+        yield return new WaitForSecondsRealtime(1);
+        _customRelay.OnBindHost();
+        yield return new WaitForSecondsRealtime(1);
+        _customRelay.OnJoinCode();
+        yield return new WaitForSecondsRealtime(1);
+
+        _AssignJoinCodeToUI(_customRelay.joinCode);
     }
 
-    private void _AssignJoinCode(string joinCode)
+    private void _AssignJoinCodeToUI(string joinCode)
     {
         _sessionCodeText.text = joinCode;
     }
@@ -124,7 +138,15 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator _Co_StartClient(string sessionCode)
     {
-        Task task = _lobbyController.StartClientProcess(sessionCode);
-        yield return new WaitUntil(() => task.IsCompleted);
+        /*Task task = _lobbyController.StartClientProcess(sessionCode);
+        yield return new WaitUntil(() => task.IsCompleted);*/
+
+        _customRelay.OnSignIn();
+        yield return new WaitForSecondsRealtime(1);
+        _customRelay.OnJoin();
+        yield return new WaitForSecondsRealtime(1);
+        _customRelay.OnBindPlayer();
+        yield return new WaitForSecondsRealtime(1);
+        _customRelay.OnConnectPlayer();
     }
 }
