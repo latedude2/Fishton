@@ -10,8 +10,14 @@ public class FishingMinigameController : LocalPlayerComponent
     private EventManager Events;
     private FishingMinigame MinigameInstance;
 
-    public void OnEnable()
+    /*public void OnEnable()
     {
+        DoInitialize();
+    }*/
+
+    protected override void MyAwake()
+    {
+        base.MyAwake();
         DoInitialize();
     }
 

@@ -8,7 +8,16 @@ public class LocalPlayerComponent : NetworkBehaviour
 {
     private void Awake()
     {
-        // TODO: Enable when we want to do networking
-        // enabled = IsLocalPlayer;
+        enabled = IsLocalPlayer;
+
+        if (enabled)
+        {
+            MyAwake();
+        }
+    }
+
+    protected virtual void MyAwake()
+    {
+
     }
 }

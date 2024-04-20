@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishingController : MonoBehaviour
+public class FishingController : LocalPlayerComponent
 {
     private EventManager Events { get; set; }
     private FishEncounter CurrentEncounter = null;
-    
-    private void Awake()
+
+    protected override void MyAwake()
     {
+        base.MyAwake();
         Events = EventManager.Get(gameObject);
         Events.OnFishingStateChanged += (FishEncounterState NewState) => 
         {

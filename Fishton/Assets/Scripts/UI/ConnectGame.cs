@@ -28,8 +28,8 @@ public class ConnectGame : MonoBehaviour
     private void Start()
     {
         //Set initial states
-        _sessionCodeContainer.gameObject.SetActive(false);
-        _sessionCodeText.gameObject.SetActive(false);
+        //_sessionCodeContainer.gameObject.SetActive(false);
+        //_sessionCodeText.gameObject.SetActive(false);
 
         //Assign actions to ui elements
         _joinButton.onClick.AddListener(() => { _ButtonPressed_Join(); });
@@ -40,8 +40,8 @@ public class ConnectGame : MonoBehaviour
 
     private void _ButtonPressed_Join()
     {
-        _ShowSessionCodeInput();
-        _HideSessionCode();
+        /*_ShowSessionCodeInput();
+        _HideSessionCode();*/
     }
 
     private void _ButtonPressed_Play()
@@ -53,14 +53,14 @@ public class ConnectGame : MonoBehaviour
             return;
         }
         StartClientWithRelay(sessionCode);
-
+        GetComponent<MainMenuController>().AnimateOut();
     }
 
     private void _ButtonPressed_Host()
     {
         Debug.Log("Host button pressed");
-        _HideSessionCodeInput();
-        _ShowSessionCode();
+        //_HideSessionCodeInput();
+        //_ShowSessionCode();
         StartHostWithRelay();
         GetComponent<MainMenuController>().AnimateOut();
     }
