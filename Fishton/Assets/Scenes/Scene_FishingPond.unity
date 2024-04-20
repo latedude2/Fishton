@@ -1145,6 +1145,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerPositionManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1395323711544134494, guid: b553425990cf8744d8e9ecabcf81fddb,
+        type: 3}
+      propertyPath: MajorAxis
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1395323711544134494, guid: b553425990cf8744d8e9ecabcf81fddb,
+        type: 3}
+      propertyPath: MinorAxis
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3206527112416734036, guid: b553425990cf8744d8e9ecabcf81fddb,
         type: 3}
       propertyPath: m_LocalPosition.x
