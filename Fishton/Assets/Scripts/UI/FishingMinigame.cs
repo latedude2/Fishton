@@ -40,6 +40,15 @@ public class FishingMinigame : MonoBehaviour
     [SerializeField]
     private float FishSize = 0.1f;
 
+    [SerializeField]
+    private float StartProgress = 0.5f;
+
+    [SerializeField]
+    private float GainPointsSpeed = 2.0f;
+
+    [SerializeField]
+    private float LosePointsSpeed = 3.0f;
+
     public FishDefinition Fish { get; set; }
     public OnFishingMinigameFinishedDelegate OnGameFinished;
 
@@ -81,6 +90,7 @@ public class FishingMinigame : MonoBehaviour
         HandlePosition = 0.5f;
         Velocity = 0;
         RequiredPoints = GetRequiredPoints();
+        CurrentPoints = RequiredPoints * StartProgress;
         SelectNewFishPosition();
     }
 
@@ -157,19 +167,26 @@ public class FishingMinigame : MonoBehaviour
 
     private void HandleGrantPoints()
     {
-        if(!IsWithinFish)
-            return;
-
-        CurrentPoints += Time.deltaTime;
+        if(IsWithinFish)
+        {
+            CurrentPoints += Time.deltaTime * GainPointsSpeed;
+        }
+        else
+        {
+            CurrentPoints -= Time.deltaTime * LosePointsSpeed;
+        }
+        
         ProgressBar.fillAmount = CurrentPoints / RequiredPoints;
 
         if(1.0f - ProgressBar.fillAmount <= float.Epsilon)
-            HandleGameFinished();
+            HandleGameFinished(true);
+        else if(ProgressBar.fillAmount <= float.Epsilon)
+            HandleGameFinished(false);    
     }
 
-    private void HandleGameFinished()
+    private void HandleGameFinished(bool Won)
     {
-        OnGameFinished.Invoke(true);
+        OnGameFinished.Invoke(Won);
     }
 
     private float GetHandleScaleFromDifficulty()
