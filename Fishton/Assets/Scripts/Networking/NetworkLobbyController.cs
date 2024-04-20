@@ -77,9 +77,9 @@ public class NetworkLobbyController
 
         await _Join(sessionCode);
 
-        await _BindClient();
+        _BindClient();
 
-        await _ConnectClient();
+        _ConnectClient();
     }
 
 
@@ -110,6 +110,10 @@ public class NetworkLobbyController
         {
             Debug.LogError(ex.Message + "\n" + ex.StackTrace);
         }
+
+        Debug.Log($"The region is {playerAllocation?.Region}");
+        Debug.Log($"The region is ???");
+
     }
 
 
@@ -201,7 +205,7 @@ public class NetworkLobbyController
 
     #region Client
 
-    private async Task _BindClient()
+    private void _BindClient()
     {
         Debug.Log("Player - Binding to the Relay server using UTP.");
 
@@ -226,7 +230,7 @@ public class NetworkLobbyController
         }
     }
 
-    private async Task _ConnectClient()
+    private void _ConnectClient()
     {
         Debug.Log("Player - Connecting to Host's client.");
 

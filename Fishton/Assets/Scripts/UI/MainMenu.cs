@@ -41,7 +41,7 @@ public class MainMenu : MonoBehaviour
 
     private void _ButtonPressed_Join()
     {
-        _StopHostProcess();
+        //_StopHostProcess();
         _ShowSessionCodeInput();
         _HideSessionCode();
     }
@@ -64,6 +64,8 @@ public class MainMenu : MonoBehaviour
         _StartHostProcess();
     }
 
+
+    #region Control UI
     private void _ShowSessionCodeInput()
     {
         _sessionCodeContainer.gameObject.SetActive(true);
@@ -83,6 +85,7 @@ public class MainMenu : MonoBehaviour
     {
         _sessionCodeText.gameObject.SetActive(false);
     }
+    #endregion Control UI
 
 
     private void _StartHostProcess()
@@ -123,7 +126,5 @@ public class MainMenu : MonoBehaviour
     {
         Task task = _lobbyController.StartClientProcess(sessionCode);
         yield return new WaitUntil(() => task.IsCompleted);
-
-        Debug.Log("Client is done !");
     }
 }
