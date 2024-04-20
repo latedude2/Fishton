@@ -1,24 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using System.Threading.Tasks;
-using TMPro;
-using Unity.Services.Authentication;
-using Unity.Services.Core;
-using Unity.Services.Relay;
-using Unity.Services.Relay.Models;
+using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport;
 using Unity.Networking.Transport.Relay;
+using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using System;
-using System.Linq;
-using UnityEngine.Assertions;
-using UnityEngine.EventSystems;
-using Unity.Netcode;
-using Unity.Netcode.Components;
-using Unity;
-
+using Unity.Services.Authentication;
+using Unity.Services.Core;
 
 public class ConnectGame : MonoBehaviour
 {
@@ -116,7 +109,7 @@ public class ConnectGame : MonoBehaviour
 
         var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCode);
 
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
+        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "utp"));
         return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
     }
     
