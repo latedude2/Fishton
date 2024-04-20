@@ -56,6 +56,7 @@ public class ConnectGame : MonoBehaviour
 
     private void _ButtonPressed_Host()
     {
+        Debug.Log("Host button pressed");
         _HideSessionCodeInput();
         _ShowSessionCode();
         StartHostWithRelay();
@@ -86,16 +87,23 @@ public class ConnectGame : MonoBehaviour
 
     public async Task<string> StartHostWithRelay(int maxConnections = 100)
     {
+        Debug.Log("Starting host with relay");
         await UnityServices.InitializeAsync();
+        Debug.Log("Unity services initialized");
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log("Signed in anonymously");
         }
         Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
+        Debug.Log("Allocation created");
         //Set relay server data
 
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "utp"));
+        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "dtls"));
+        Debug.Log("Allocation created");
         var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+        Debug.Log($"Join code: {joinCode}");
+        _sessionCodeText.text = joinCode;
         return NetworkManager.Singleton.StartHost() ? joinCode : null;
     }
 
