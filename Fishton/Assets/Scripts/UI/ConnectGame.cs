@@ -23,6 +23,7 @@ public class ConnectGame : MonoBehaviour
     [SerializeField] GameObject _sessionCodeContainer;
     [SerializeField] TMP_InputField _sessionCodeInputField;
     [SerializeField] TMP_Text _sessionCodeText;
+    [SerializeField] TMP_Text _sessionCodeTextInGame;
 
     private void Start()
     {
@@ -34,6 +35,7 @@ public class ConnectGame : MonoBehaviour
         _joinButton.onClick.AddListener(() => { _ButtonPressed_Join(); });
         _hostButton.onClick.AddListener(() => { _ButtonPressed_Host(); });
         _playButton.onClick.AddListener(() => { _ButtonPressed_Play(); });
+        _quitButton.onClick.AddListener(() => { Application.Quit(); });
     }
 
     private void _ButtonPressed_Join()
@@ -60,6 +62,7 @@ public class ConnectGame : MonoBehaviour
         _HideSessionCodeInput();
         _ShowSessionCode();
         StartHostWithRelay();
+        GetComponent<MainMenuController>().AnimateOut();
     }
 
     
@@ -92,13 +95,20 @@ public class ConnectGame : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
-        Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
+        Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections, "europe-north1");
         //Set relay server data
-
+        #if UNITY_WEBGL
+        var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        unityTransport.SetRelayServerData(new RelayServerData(allocation, "wss"));
+        unityTransport.UseWebSockets = true;
+        #endif
+        #if !UNITY_WEBGL
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "dtls"));
+        #endif
         var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
         Debug.Log($"Join code: {joinCode}");
         _sessionCodeText.text = joinCode;
+        _sessionCodeTextInGame.text = joinCode;
         return NetworkManager.Singleton.StartHost() ? joinCode : null;
     }
 
@@ -112,9 +122,16 @@ public class ConnectGame : MonoBehaviour
             Debug.Log("Signed in anonymously");
         }
 
-        var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCode);
+        var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
         Debug.Log($"Join allocation: {joinAllocation}");
+        #if UNITY_WEBGL
+        var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        unityTransport.SetRelayServerData(new RelayServerData(joinAllocation, "wss"));
+        unityTransport.UseWebSockets = true;
+        #endif
+        #if !UNITY_WEBGL
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
+        #endif
         Debug.Log("Starting client");
         return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
     }
