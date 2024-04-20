@@ -9,7 +9,7 @@ public class LocalPlayerComponent : NetworkBehaviour
     private void Awake()
     {
         enabled = IsLocalPlayer;
-
+        Debug.Log($"is local player : {IsLocalPlayer}");
         if (enabled)
         {
             MyAwake();
