@@ -1,20 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class FishEncounter : MonoBehaviour
 {
+    Player _player;
     private EventManager Events { get; set; }
     public FishEncounterState CurrentState
     {
         get
         {
-            return _CurrentState;
+            return _player.currentState;
         }
         set
         {
-            _CurrentState = value;
+            _player.currentState = value;
             Events.OnFishingStateChanged?.Invoke(value);
 
             if(value == FishEncounterState.Caught)
@@ -25,15 +27,14 @@ public class FishEncounter : MonoBehaviour
         }
     }
 
-    private FishEncounterState _CurrentState = FishEncounterState.None;
-
     private void Awake()
     {
         Events = EventManager.Get(gameObject);
     }
 
-    public void StartEncounter()
+    public void StartEncounter(Player player)
     {
+        _player = player;
         StartCoroutine("HandleEventLoop");
     }
 
