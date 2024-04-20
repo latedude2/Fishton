@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class FishEncounter : MonoBehaviour
 {
@@ -17,13 +18,6 @@ public class FishEncounter : MonoBehaviour
         set
         {
             _player.currentState = value;
-            Events.OnFishingStateChanged?.Invoke(value);
-
-            if(value == FishEncounterState.Caught)
-                Events.OnFishCaught?.Invoke();
-
-            if((value & FishEncounterState.Finished) == value)
-                HandleFinished();
         }
     }
 
@@ -32,18 +26,35 @@ public class FishEncounter : MonoBehaviour
         Events = EventManager.Get(gameObject);
     }
 
+    private void OnDestroy()
+    {
+        _player.onFishEncounterChange -= _OnFishEncounterChange;
+    }
+
     public void StartEncounter(Player player)
     {
         _player = player;
+        player.onFishEncounterChange += _OnFishEncounterChange;
         StartCoroutine("HandleEventLoop");
+    }
+
+    private void _OnFishEncounterChange(FishEncounterState previousState, FishEncounterState newState)
+    {
+        Events.OnFishingStateChanged?.Invoke(newState);
+
+        if (newState == FishEncounterState.Caught)
+            Events.OnFishCaught?.Invoke();
+
+        if ((newState & FishEncounterState.Finished) == newState)
+            HandleFinished();
     }
 
     public IEnumerator HandleEventLoop()
     {
         CurrentState = FishEncounterState.Throwing;
-        yield return new WaitForSeconds(0);
+        yield return new WaitForSeconds(2);
         CurrentState = FishEncounterState.Idle;
-        yield return new WaitForSeconds(0);
+        yield return new WaitForSeconds(2);
         CurrentState = FishEncounterState.Hooked;
 
         WaitForHookedEventHandler HookHandler = new WaitForHookedEventHandler();
