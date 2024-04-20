@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class LocalPlayerComponent : NetworkBehaviour
 {
-    private void Awake()
+    public override void OnNetworkSpawn()
     {
         enabled = IsLocalPlayer;
-        Debug.Log($"is local player : {IsLocalPlayer}");
+        
         if (enabled)
         {
             MyAwake();

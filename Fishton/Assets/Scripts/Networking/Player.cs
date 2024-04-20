@@ -6,7 +6,12 @@ using Unity.Netcode;
 public class Player : NetworkBehaviour
 {
 
+    public NetworkVariable<FishEncounterState> _CurrentState = new NetworkVariable<FishEncounterState>(value: FishEncounterState.None, readPerm: NetworkVariableReadPermission.Everyone, writePerm: NetworkVariableWritePermission.Owner);
+
+
     public NetworkVariable<int> positionIndex = new NetworkVariable<int>(0);
+
+    public FishEncounterState currentState { get => _CurrentState.Value; set { _CurrentState.Value = value; } }
 
     public void Awake()
     {

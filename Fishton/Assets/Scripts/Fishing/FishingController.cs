@@ -27,7 +27,6 @@ public class FishingController : LocalPlayerComponent
 
     private void Update()
     {
-        Debug.Log("udate");
         if (Input.GetMouseButton(0))
         {
             HandleInput();
@@ -46,6 +45,6 @@ public class FishingController : LocalPlayerComponent
     {
         Debug.Log("Creating New Encounter");
         CurrentEncounter = gameObject.AddComponent<FishEncounter>(); 
-        CurrentEncounter.StartEncounter();
+        CurrentEncounter.StartEncounter(GetComponent<Player>());
     }
 }
