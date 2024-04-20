@@ -27,7 +27,6 @@ public class FishingController : LocalPlayerComponent
 
     private void Update()
     {
-        Debug.Log("udate");
         if (Input.GetMouseButton(0))
         {
             HandleInput();
