@@ -53,7 +53,7 @@ public class ConnectGame : MonoBehaviour
             return;
         }
         StartClientWithRelay(sessionCode);
-
+        GetComponent<MainMenuController>().AnimateOut();
     }
 
     private void _ButtonPressed_Host()
