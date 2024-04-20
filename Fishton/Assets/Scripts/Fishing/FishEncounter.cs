@@ -17,10 +17,7 @@ public class FishEncounter : MonoBehaviour
         }
         set
         {
-<<<<<<< HEAD
             _player.currentState = value;
-=======
-            _CurrentState = value;
             Events.OnFishingStateChanged?.Invoke(value);
 
             if(value == FishEncounterState.Caught)
@@ -28,7 +25,6 @@ public class FishEncounter : MonoBehaviour
 
             if((value & FishEncounterState.Finished) == value)
                 StartCoroutine("HandleFinished");
->>>>>>> fishin
         }
     }
 
@@ -63,15 +59,9 @@ public class FishEncounter : MonoBehaviour
     public IEnumerator HandleEventLoop()
     {
         CurrentState = FishEncounterState.Throwing;
-<<<<<<< HEAD
-        yield return new WaitForSeconds(2);
-        CurrentState = FishEncounterState.Idle;
-        yield return new WaitForSeconds(2);
-=======
         yield return new WaitForSeconds(1);
         CurrentState = FishEncounterState.Idle;
         yield return new WaitForSeconds(3);
->>>>>>> fishin
         CurrentState = FishEncounterState.Hooked;
 
         WaitForHookedEventHandler HookHandler = new WaitForHookedEventHandler();
