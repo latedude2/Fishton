@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class FishingController : MonoBehaviour
 {
+    private EventManager Events { get; set; }
     private FishEncounter CurrentEncounter = null;
     
     private void Awake()
     {
-        EventManager.OnFishingStateChanged += (FishEncounterState NewState) => 
+        Events = EventManager.Get(gameObject);
+        Events.OnFishingStateChanged += (FishEncounterState NewState) => 
         {
             Debug.Log(NewState);
+        };
+        Events.OnFishEncounterFinished += () => 
+        {
+            if(CurrentEncounter != null)
+            {
+                Destroy(CurrentEncounter);
+                CurrentEncounter = null;
+            }
         };
     }
 
@@ -32,6 +42,7 @@ public class FishingController : MonoBehaviour
 
     private void StartNewEncounter()
     {
+        Debug.Log("Creating New Encounter");
         CurrentEncounter = gameObject.AddComponent<FishEncounter>(); 
         CurrentEncounter.StartEncounter();
     }

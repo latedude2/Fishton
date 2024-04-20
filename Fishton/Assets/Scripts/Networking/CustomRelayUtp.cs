@@ -14,9 +14,7 @@ using UnityEngine.Assertions;
 
 public class CustomRelayUtp : MonoBehaviour
 {
-    public string sessionCode = "";
-
-    string joinCode = "n/a";
+    [HideInInspector] public string joinCode = "n/a";
     string playerId = "Not signed in";
     string autoSelectRegionName = "auto-select (QoS)";
     int regionAutoSelectIndex = 0;
@@ -39,7 +37,7 @@ public class CustomRelayUtp : MonoBehaviour
     NativeList<NetworkConnection> serverConnections;
     NetworkConnection clientConnection;
 
-    async void Start()
+    public async void InitializeUnityService()
     {
         // Initialize Unity Services
         await UnityServices.InitializeAsync();
@@ -134,7 +132,7 @@ public class CustomRelayUtp : MonoBehaviour
         Debug.Log("Host - Creating an allocation. Upon success, I have 10 seconds to BIND to the Relay server that I've allocated.");
 
         // Determine region to use (user-selected or auto-select/QoS)
-        string region = "auto-select (QoS)";
+        string region = "europe-north1";
         Debug.Log($"The chosen region is: {region ?? autoSelectRegionName}");
 
         // Set max connections. Can be up to 100, but note the more players connected, the higher the bandwidth/latency impact.
@@ -208,7 +206,7 @@ public class CustomRelayUtp : MonoBehaviour
     public async void OnJoin()
     {
         // Input join code in the respective input field first.
-        if (String.IsNullOrEmpty(sessionCode))
+        if (String.IsNullOrEmpty(joinCode))
         {
             Debug.LogError("Please input a join code.");
             return;
@@ -218,7 +216,7 @@ public class CustomRelayUtp : MonoBehaviour
 
         try
         {
-            playerAllocation = await RelayService.Instance.JoinAllocationAsync(sessionCode);
+            playerAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
             Debug.Log("Player Allocation ID: " + playerAllocation.AllocationId);
         }
         catch (RelayServiceException ex)
