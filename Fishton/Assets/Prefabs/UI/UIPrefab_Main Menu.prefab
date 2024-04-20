@@ -1920,6 +1920,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2504756274397899003}
   - component: {fileID: 649783483803187305}
+  - component: {fileID: 4125218737231764584}
   m_Layer: 5
   m_Name: UIPrefab_Main Menu
   m_TagString: Untagged
@@ -1970,6 +1971,19 @@ MonoBehaviour:
   _sessionCodeContainer: {fileID: 3237261123077074728}
   _sessionCodeInputField: {fileID: 2932969795192616043}
   _sessionCodeText: {fileID: 4283531845257650947}
+--- !u!114 &4125218737231764584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6907911721011254885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2915a23c8c8f9e74581adb0f2cbc9182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sessionCode: 
 --- !u!1 &8338483578630673846
 GameObject:
   m_ObjectHideFlags: 0
