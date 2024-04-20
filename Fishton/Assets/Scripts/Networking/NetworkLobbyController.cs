@@ -50,11 +50,12 @@ public class NetworkLobbyController
     {
         // Initialize Unity Services
         await UnityServices.InitializeAsync();
+        await _SignIn();
     }
 
     public async Task StartHostProcess()
     {
-        await _SignIn();
+        //await _SignIn();
 
         await _Region();
 
@@ -73,7 +74,9 @@ public class NetworkLobbyController
 
     public async Task StartClientProcess(string sessionCode)
     {
-        await _SignIn();
+        //await _SignIn();
+
+        await Task.Delay(1000);
 
         await _Join(sessionCode);
 
@@ -100,7 +103,7 @@ public class NetworkLobbyController
         }
 
         Debug.Log("Player - Joining host allocation using join code. Upon success, I have 10 seconds to BIND to the Relay server that I've allocated.");
-
+        Debug.Log($"the session code is {sessionCode}");
         try
         {
             playerAllocation = await RelayService.Instance.JoinAllocationAsync(sessionCode);
