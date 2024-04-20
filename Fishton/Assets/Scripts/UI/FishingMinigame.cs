@@ -12,6 +12,9 @@ public class FishingMinigame : MonoBehaviour
     private Image FishImage;
 
     [SerializeField]
+    private Image ProgressBar;
+
+    [SerializeField]
     private float InputAcceleration = 0.5f;
 
     [SerializeField]
@@ -32,17 +35,37 @@ public class FishingMinigame : MonoBehaviour
     [SerializeField]
     private float MaxFishPosInterval = 2.0f;
 
+    [SerializeField]
+    private float FishSize = 0.1f;
+
     public FishDefinition Fish { get; set; }
 
     private bool ShouldUpdateFishPosition => Time.time >= LastFishPositionUpdate + FishPositionUpdateWaitDuration;
 
+    private RectTransform HandleRect => Scrollbar.rectTransform;
+    private float HandleMinPos => HandleRect.anchorMin.y;
+    private float HandleMaxPos => HandleRect.anchorMax.y;
+
+    private RectTransform FishRect => FishImage.rectTransform;
+    private float FishMinPos => FishRect.anchorMin.y;
+    private float FishMaxPos => FishRect.anchorMax.y;
+
+    private bool IsWithinFish =>
+        // Handle is below, but overlapping fish
+        HandleMinPos < FishMinPos && HandleMaxPos > FishMinPos ||
+        // Handle is above fish, but being overlapped
+        HandleMaxPos > FishMinPos && HandleMinPos < FishMaxPos;
+
     private float HandleSize;
-    private float Position;
+    private float HandlePosition;
+    private float FishPosition;
     
     private float Velocity;
     private float FishTargetPosition;
     private float LastFishPositionUpdate;
     private float FishPositionUpdateWaitDuration;
+    private float RequiredPoints;
+    private float CurrentPoints;
 
     private void Awake()
     {
@@ -52,8 +75,9 @@ public class FishingMinigame : MonoBehaviour
     private void InitializeData()
     {
         HandleSize = GetHandleScaleFromDifficulty();
-        Position = 0.5f;
+        HandlePosition = 0.5f;
         Velocity = 0;
+        RequiredPoints = GetRequiredPoints();
         SelectNewFishPosition();
     }
 
@@ -61,11 +85,15 @@ public class FishingMinigame : MonoBehaviour
     {
         HandleAcceleration();
         UpdatePosition();
-        SetPosition(Position);
-        SetFishPosition(FishTargetPosition);
+        SetPosition(HandlePosition, HandleRect, HandleSize);
+
+        FishPosition = Mathf.Lerp(FishPosition, FishTargetPosition, FishSpeed * Time.deltaTime);
+        SetPosition(FishPosition, FishRect, FishSize);
 
         if(ShouldUpdateFishPosition)
             SelectNewFishPosition();
+
+        HandleGrantPoints();
     }
 
     private void HandleAcceleration()
@@ -77,13 +105,13 @@ public class FishingMinigame : MonoBehaviour
         }
         else
         {
-            if(Position <= float.Epsilon)
+            if(HandlePosition <= float.Epsilon)
             {
                 Velocity = 0.0f;
                 return;
             }
 
-            if(1.0f - Position <= float.Epsilon)
+            if(1.0f - HandlePosition <= float.Epsilon)
                 Velocity = 0.0f;
 
             Acceleration = NoInputAcceleration;
@@ -95,45 +123,26 @@ public class FishingMinigame : MonoBehaviour
 
     private void UpdatePosition()
     {
-        Position = Mathf.Clamp(Position + Velocity, 0.0f, 1.0f);
+        HandlePosition = Mathf.Clamp(HandlePosition + Velocity, 0.0f, 1.0f);
     }
 
-    private void SetPosition(float PercentagePosition)
+    private void SetPosition(float PercentagePosition, RectTransform RectTrans, float Size)
     {
         PercentagePosition = Mathf.Clamp(PercentagePosition, 0.0f, 1.0f);
 
         // Percentage of the bar that we can work with
-        float WorkArea = Mathf.Clamp(1.0f - HandleSize, 0.0f, 1.0f);
+        float WorkArea = Mathf.Clamp(1.0f - Size, 0.0f, 1.0f);
         float Offset = WorkArea * PercentagePosition;
-
-        RectTransform RectTrans = Scrollbar.rectTransform;
         
         Vector2 Min = RectTrans.anchorMin;
         Min.y = Offset;
         RectTrans.anchorMin = Min;
 
         Vector2 Max = RectTrans.anchorMax;
-        Max.y = Offset + HandleSize;
+        Max.y = Offset + Size;
         RectTrans.anchorMax = Max;
 
         RectTrans.anchoredPosition = Vector2.zero;
-    }
-
-    private void SetFishPosition(float TargetPosition)
-    {
-        TargetPosition = Mathf.Clamp(TargetPosition, 0.0f, 1.0f);
-
-        RectTransform RectTrans = FishImage.rectTransform;
-        RectTransform ParentRect = RectTrans.parent.GetComponent<RectTransform>();
-
-        float Height = ParentRect.rect.height - RectTrans.rect.height;
-
-        float CurrentPos = RectTrans.anchoredPosition.y / Height; 
-        float NewPos = Mathf.Lerp(CurrentPos, TargetPosition, FishSpeed * Time.deltaTime);
-
-        Vector2 Pos = RectTrans.anchoredPosition;
-        Pos.y = NewPos * Height;
-        RectTrans.anchoredPosition = Pos;
     }
 
     private void SelectNewFishPosition()
@@ -143,8 +152,22 @@ public class FishingMinigame : MonoBehaviour
         FishPositionUpdateWaitDuration = Random.Range(MinFishPosInterval, MaxFishPosInterval);
     }
 
+    private void HandleGrantPoints()
+    {
+        if(!IsWithinFish)
+            return;
+
+        CurrentPoints += Time.deltaTime;
+        ProgressBar.fillAmount = CurrentPoints / RequiredPoints;
+    }
+
     private float GetHandleScaleFromDifficulty()
     {
-        return 0.2f;
+        return 0.3f;
+    }
+
+    private float GetRequiredPoints()
+    {
+        return 10;
     }
 }
