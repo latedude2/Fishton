@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1233149941 &-8783494622532871129
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ring7_{-8783494622532871129}
+  m_AudioClip: {fileID: 8300000, guid: 20ab051e70499694ba34889cc930dbcd, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-5392713435127992015
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ring4_{-5392713435127992015}
+  m_AudioClip: {fileID: 8300000, guid: e52e9793735143545b36006376423a22, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-6644261281545411
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ring1_{-6644261281545411}
+  m_AudioClip: {fileID: 8300000, guid: 7d46cbfb67e5e5240b6ae9f645b77e35, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &4674233033986351974
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ring3_{4674233033986351974}
+  m_AudioClip: {fileID: 8300000, guid: 9802389a7a9112449bfec2feba19056b, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &5215403772130009550
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ring5_{5215403772130009550}
+  m_AudioClip: {fileID: 8300000, guid: 0b206b58e9a5fff40b90bade85f2418a, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &6291530114780955404
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ring2_{6291530114780955404}
+  m_AudioClip: {fileID: 8300000, guid: 59d4939cbd8b51a42a55304f4e28852f, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1307931743 &6418180475301049370
+AudioRandomContainer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FishAvailableSounds
+  m_Volume: 0
+  m_Pitch: -7
+  m_AutomaticTriggerTime: 0
+  m_LoopCount: 1
+  m_VolumeRandomizationRange: {x: 0, y: 0}
+  m_PitchRandomizationRange: {x: -50, y: 50}
+  m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0}
+  m_LoopCountRandomizationRange: {x: 0, y: 0}
+  m_Elements:
+  - {fileID: -6644261281545411}
+  - {fileID: 6291530114780955404}
+  - {fileID: 4674233033986351974}
+  - {fileID: -5392713435127992015}
+  - {fileID: 5215403772130009550}
+  - {fileID: 8977527224288726597}
+  - {fileID: -8783494622532871129}
+  m_AvoidRepeatingLast: 1
+  m_PlaybackMode: 2
+  m_TriggerMode: 0
+  m_AutomaticTriggerMode: 1
+  m_LoopMode: 2
+  m_VolumeRandomizationEnabled: 0
+  m_PitchRandomizationEnabled: 1
+  m_AutomaticTriggerTimeRandomizationEnabled: 0
+  m_LoopCountRandomizationEnabled: 0
+--- !u!1233149941 &8977527224288726597
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ring6_{8977527224288726597}
+  m_AudioClip: {fileID: 8300000, guid: 417b7c0ee71b0d745a0ec704aabef44c, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
