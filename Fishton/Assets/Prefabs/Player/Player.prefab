@@ -131,6 +131,8 @@ GameObject:
   - component: {fileID: 3475318888767366543}
   - component: {fileID: 9117144023524057659}
   - component: {fileID: 4841051755756003838}
+  - component: {fileID: 4539314230554469463}
+  - component: {fileID: 5664770640978978713}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -180,4 +182,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PotentialHitRadius: 2
   FishingBobPrefab: {fileID: 162038949835725555, guid: 998643825050bd643b6504e9d46632e9,
+    type: 3}
+--- !u!114 &4539314230554469463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6639482331452022524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 4098298383
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &5664770640978978713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6639482331452022524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a1cc26d639f3146bb6fea2bbc30a58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinigamePrefab: {fileID: 2240292814533652648, guid: cb0246b6c41e124408a2023e61479b28,
     type: 3}

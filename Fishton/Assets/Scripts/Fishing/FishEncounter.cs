@@ -40,9 +40,9 @@ public class FishEncounter : MonoBehaviour
     public IEnumerator HandleEventLoop()
     {
         CurrentState = FishEncounterState.Throwing;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0);
         CurrentState = FishEncounterState.Idle;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(0);
         CurrentState = FishEncounterState.Hooked;
 
         WaitForHookedEventHandler HookHandler = new WaitForHookedEventHandler();
@@ -51,11 +51,13 @@ public class FishEncounter : MonoBehaviour
         if(HookHandler.DidPlayerSucceed)
         {
             CurrentState = FishEncounterState.Caught;
+            WaitForFishingMinigameFinished FishingMinigameEventHandler = new WaitForFishingMinigameFinished(Events);
+            yield return FishingMinigameEventHandler;
+            if(FishingMinigameEventHandler.DidWin)
+                CurrentState = FishEncounterState.Succeeeded;
         }
-        else
-        {
-            CurrentState = FishEncounterState.Failed;
-        }
+
+        CurrentState = FishEncounterState.Failed;
     }
 
     private void HandleFinished()

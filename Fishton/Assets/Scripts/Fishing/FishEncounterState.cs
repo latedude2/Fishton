@@ -12,11 +12,14 @@ public enum FishEncounterState
     // A fish has been caught on the hook
     Hooked      = 0b_0000_0100,
 
-    // The player has successfully caught the fish
+    // The player has started catching the fish
     Caught      = 0b_0000_1000,
 
     // The player failed to catch the fish
     Failed      = 0b_0001_0000,
 
-    Finished = Caught | Failed
+    // The player successfully caught the fish
+    Succeeeded  = 0b_0010_0000,
+
+    Finished = Failed | Succeeeded
 }
