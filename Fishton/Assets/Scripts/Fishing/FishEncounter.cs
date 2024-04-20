@@ -21,7 +21,7 @@ public class FishEncounter : MonoBehaviour
                 Events.OnFishCaught?.Invoke();
 
             if((value & FishEncounterState.Finished) == value)
-                HandleFinished();
+                StartCoroutine("HandleFinished");
         }
     }
 
@@ -54,15 +54,19 @@ public class FishEncounter : MonoBehaviour
             WaitForFishingMinigameFinished FishingMinigameEventHandler = new WaitForFishingMinigameFinished(Events);
             yield return FishingMinigameEventHandler;
             if(FishingMinigameEventHandler.DidWin)
+            {
                 CurrentState = FishEncounterState.Succeeeded;
+                yield break;
+            }
         }
 
         CurrentState = FishEncounterState.Failed;
     }
 
-    private void HandleFinished()
+    private IEnumerator HandleFinished()
     {
         Debug.Log("Fish Encounter Finished");
+        yield return new WaitForSeconds(3);
         Events.OnFishEncounterFinished?.Invoke();
     }
 }

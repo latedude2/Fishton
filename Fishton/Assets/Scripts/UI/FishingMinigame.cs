@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public delegate void OnFishingMinigameFinishedDelegate(bool WonGame);
+
 public class FishingMinigame : MonoBehaviour
 {
     [SerializeField]
@@ -39,6 +41,7 @@ public class FishingMinigame : MonoBehaviour
     private float FishSize = 0.1f;
 
     public FishDefinition Fish { get; set; }
+    public OnFishingMinigameFinishedDelegate OnGameFinished;
 
     private bool ShouldUpdateFishPosition => Time.time >= LastFishPositionUpdate + FishPositionUpdateWaitDuration;
 
@@ -159,6 +162,14 @@ public class FishingMinigame : MonoBehaviour
 
         CurrentPoints += Time.deltaTime;
         ProgressBar.fillAmount = CurrentPoints / RequiredPoints;
+
+        if(1.0f - ProgressBar.fillAmount <= float.Epsilon)
+            HandleGameFinished();
+    }
+
+    private void HandleGameFinished()
+    {
+        OnGameFinished.Invoke(true);
     }
 
     private float GetHandleScaleFromDifficulty()
