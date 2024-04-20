@@ -140,7 +140,7 @@ public class NetworkLobbyController
         Debug.Log("Host - Creating an allocation. Upon success, I have 10 seconds to BIND to the Relay server that I've allocated.");
 
         // 0 should be the default region index
-        string region = autoSelectRegionName;
+        string region = "europe-north1";// regions[1].Id;
         Debug.Log($"The chosen region is: {region ?? autoSelectRegionName}");
 
         // Set max connections. Can be up to 100, but note the more players connected, the higher the bandwidth/latency impact.
