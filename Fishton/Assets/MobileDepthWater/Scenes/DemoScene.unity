@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 10
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -44,6 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 12
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -66,6 +67,9 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 0
     m_TextureCompression: 0
+    m_FinalGather: 0
+    m_FinalGatherFiltering: 1
+    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 1
     m_BakeBackend: 0
@@ -269,7 +273,7 @@ PrefabInstance:
       value: -144.10101
       objectReference: {fileID: 0}
     - target: {fileID: 2300004, guid: 8dfb3bdf788cbc345a338b5bd53d276b, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 854929c6a90467543b32b4c44a6fdb3b, type: 2}
     m_RemovedComponents: []
@@ -333,8 +337,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -441,7 +443,7 @@ PrefabInstance:
       value: -17.318
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 535210f1f9844ba4ab27b9972762c159, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 606d0665b57392b48b35f760c205dc21, type: 2}
     m_RemovedComponents: []
@@ -534,7 +536,7 @@ PrefabInstance:
       value: -134.212
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 535210f1f9844ba4ab27b9972762c159, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 606d0665b57392b48b35f760c205dc21, type: 2}
     m_RemovedComponents: []
@@ -624,8 +626,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -804,7 +804,7 @@ PrefabInstance:
       value: -69.106
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 535210f1f9844ba4ab27b9972762c159, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 606d0665b57392b48b35f760c205dc21, type: 2}
     m_RemovedComponents: []
@@ -889,11 +889,11 @@ PrefabInstance:
       value: 3.1460001
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 371d3425353fbd74f927b386d74d4eff, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 16d37c33eb1f38e4fb1cf72191e9ef03, type: 2}
     - target: {fileID: 2300002, guid: 371d3425353fbd74f927b386d74d4eff, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 854929c6a90467543b32b4c44a6fdb3b, type: 2}
     m_RemovedComponents: []
@@ -986,7 +986,7 @@ PrefabInstance:
       value: -2.8160002
       objectReference: {fileID: 0}
     - target: {fileID: 2300004, guid: 8dfb3bdf788cbc345a338b5bd53d276b, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 854929c6a90467543b32b4c44a6fdb3b, type: 2}
     m_RemovedComponents: []
@@ -1057,7 +1057,7 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 535210f1f9844ba4ab27b9972762c159, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 606d0665b57392b48b35f760c205dc21, type: 2}
     m_RemovedComponents: []
@@ -1134,15 +1134,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: b690919169dac9349ac86dd59893d16d, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 16d37c33eb1f38e4fb1cf72191e9ef03, type: 2}
     - target: {fileID: 2300002, guid: b690919169dac9349ac86dd59893d16d, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 854929c6a90467543b32b4c44a6fdb3b, type: 2}
     - target: {fileID: 2300004, guid: b690919169dac9349ac86dd59893d16d, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9821c1b0463afc345b0bbae9ddc158d3, type: 2}
     m_RemovedComponents: []
@@ -1241,7 +1241,7 @@ PrefabInstance:
       value: -120.98501
       objectReference: {fileID: 0}
     - target: {fileID: 2300004, guid: 8dfb3bdf788cbc345a338b5bd53d276b, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 854929c6a90467543b32b4c44a6fdb3b, type: 2}
     m_RemovedComponents: []
@@ -1372,8 +1372,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1585,7 +1583,7 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 535210f1f9844ba4ab27b9972762c159, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 606d0665b57392b48b35f760c205dc21, type: 2}
     m_RemovedComponents: []
@@ -1658,11 +1656,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 371d3425353fbd74f927b386d74d4eff, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 16d37c33eb1f38e4fb1cf72191e9ef03, type: 2}
     - target: {fileID: 2300002, guid: 371d3425353fbd74f927b386d74d4eff, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 854929c6a90467543b32b4c44a6fdb3b, type: 2}
     m_RemovedComponents: []
@@ -1820,8 +1818,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2252,11 +2248,11 @@ PrefabInstance:
       value: 3.1460001
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 371d3425353fbd74f927b386d74d4eff, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 16d37c33eb1f38e4fb1cf72191e9ef03, type: 2}
     - target: {fileID: 2300002, guid: 371d3425353fbd74f927b386d74d4eff, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 854929c6a90467543b32b4c44a6fdb3b, type: 2}
     m_RemovedComponents: []
@@ -2512,7 +2508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.6000061, y: 0.1000061}
+  m_AnchoredPosition: {x: 0.5999756, y: 0.099975586}
   m_SizeDelta: {x: 122.8, y: 57.4}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1367664510
@@ -2616,8 +2612,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489367972}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -2753,7 +2750,7 @@ PrefabInstance:
       value: -95.373
       objectReference: {fileID: 0}
     - target: {fileID: 2300004, guid: 8dfb3bdf788cbc345a338b5bd53d276b, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 854929c6a90467543b32b4c44a6fdb3b, type: 2}
     m_RemovedComponents: []
@@ -2951,7 +2948,7 @@ PrefabInstance:
       value: 28.768002
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 535210f1f9844ba4ab27b9972762c159, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 606d0665b57392b48b35f760c205dc21, type: 2}
     m_RemovedComponents: []
@@ -3058,7 +3055,7 @@ GameObject:
   m_IsActive: 1
 --- !u!95 &1720908041
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3072,7 +3069,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -3300,8 +3296,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1849291793}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -3437,7 +3434,7 @@ PrefabInstance:
       value: -95.397
       objectReference: {fileID: 0}
     - target: {fileID: 2300004, guid: 8dfb3bdf788cbc345a338b5bd53d276b, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 854929c6a90467543b32b4c44a6fdb3b, type: 2}
     m_RemovedComponents: []
@@ -3524,7 +3521,7 @@ PrefabInstance:
       value: -166.399
       objectReference: {fileID: 0}
     - target: {fileID: 2300004, guid: 8dfb3bdf788cbc345a338b5bd53d276b, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 854929c6a90467543b32b4c44a6fdb3b, type: 2}
     m_RemovedComponents: []

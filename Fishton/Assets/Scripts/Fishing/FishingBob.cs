@@ -23,6 +23,11 @@ public class FishingBob : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnDestroy()
+    {
+        Events.OnFishEncounterFinished -= OnFinished;
+    }
+
     private void Update()
     {
         RendererObject.transform.localPosition = new Vector3(0.0f, Mathf.Sin(Time.time) / 6.0f, 0.0f);
