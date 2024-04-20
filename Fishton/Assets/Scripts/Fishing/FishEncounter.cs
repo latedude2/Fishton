@@ -26,6 +26,11 @@ public class FishEncounter : MonoBehaviour
         Events = EventManager.Get(gameObject);
     }
 
+    private void OnDestroy()
+    {
+        _player.onFishEncounterChange -= _OnFishEncounterChange;
+    }
+
     public void StartEncounter(Player player)
     {
         _player = player;
