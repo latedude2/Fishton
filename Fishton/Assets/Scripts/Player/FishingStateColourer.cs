@@ -7,6 +7,8 @@ public class FishingStateColourer : MonoBehaviour
     private EventManager Events { get; set; }
     private FishEncounterState LastSeenState;
 
+    public SkinnedMeshRenderer Renderer;
+
     private void Awake()
     {
         Events = EventManager.Get(gameObject);
@@ -55,6 +57,6 @@ public class FishingStateColourer : MonoBehaviour
 
     private void SetColor(Color NewColor)
     {
-        gameObject.GetComponent<MeshRenderer>().material.color = NewColor;
+        Renderer.material.color = NewColor;
     }
 }
