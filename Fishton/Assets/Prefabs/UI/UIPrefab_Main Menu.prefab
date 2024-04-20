@@ -1920,7 +1920,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2504756274397899003}
   - component: {fileID: 649783483803187305}
-  - component: {fileID: 3540565686441715714}
   m_Layer: 5
   m_Name: UIPrefab_Main Menu
   m_TagString: Untagged
@@ -1971,37 +1970,6 @@ MonoBehaviour:
   _sessionCodeContainer: {fileID: 3237261123077074728}
   _sessionCodeInputField: {fileID: 2932969795192616043}
   _sessionCodeText: {fileID: 4283531845257650947}
---- !u!114 &3540565686441715714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6907911721011254885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb2a8b563c1474efe92bf1ca1c0ae889, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HostPlayerIdText: {fileID: 0}
-  PlayerPlayerIdText: {fileID: 0}
-  RegionsDropdown: {fileID: 0}
-  HostAllocationIdText: {fileID: 0}
-  JoinCodeText: {fileID: 0}
-  JoinCodeInput: {fileID: 0}
-  PlayerAllocationIdText: {fileID: 0}
-  PlayerRegionText: {fileID: 0}
-  HostBoundText: {fileID: 0}
-  PlayerBoundText: {fileID: 0}
-  PlayerConnectedText: {fileID: 0}
-  HostMessageInput: {fileID: 0}
-  PlayerMessageInput: {fileID: 0}
-  MainMenuPanel: {fileID: 0}
-  HostPanel: {fileID: 0}
-  PlayerPanel: {fileID: 0}
-  HostMessageReceivedText: {fileID: 0}
-  HostConnectedPlayersText: {fileID: 0}
-  PlayerMessageReceivedText: {fileID: 0}
 --- !u!1 &8338483578630673846
 GameObject:
   m_ObjectHideFlags: 0
