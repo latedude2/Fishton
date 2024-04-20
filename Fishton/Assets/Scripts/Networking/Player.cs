@@ -6,7 +6,7 @@ using Unity.Netcode;
 public class Player : NetworkBehaviour
 {
 
-    public NetworkVariable<FishEncounterState> _CurrentState = new NetworkVariable<FishEncounterState>(FishEncounterState.None);
+    public NetworkVariable<FishEncounterState> _CurrentState = new NetworkVariable<FishEncounterState>(value: FishEncounterState.None, readPerm: NetworkVariableReadPermission.Everyone, writePerm: NetworkVariableWritePermission.Owner);
 
 
     public NetworkVariable<int> positionIndex = new NetworkVariable<int>(0);
