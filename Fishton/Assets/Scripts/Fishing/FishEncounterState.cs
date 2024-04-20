@@ -2,15 +2,18 @@ public enum FishEncounterState
 {
     None = 0,
 
+    // The bob is being thrown into the water
+    Throwing,
+
     // The bob is in the water without a hooked fish
-    Idle = 1,
+    Idle,
 
     // A fish has been caught on the hook
-    Hooked = 2,
+    Hooked,
 
     // The player has successfully caught the fish
-    Caught = 3,
+    Caught,
 
     // The player failed to catch the fish
-    Failed = 4
+    Failed
 }
