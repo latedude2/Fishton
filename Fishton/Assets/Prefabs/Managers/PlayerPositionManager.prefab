@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f18bff12078b4a49b1d766eb0d53655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6639482331452022524, guid: e0327a3763a90c947ad7353eb7cd7640, type: 3}
+  prefab: {fileID: 8647471412944576904, guid: 00b78421e2377684e823d3daee8e68bc, type: 3}
   numberOfObjects: 100
-  MajorAxis: 2
-  MinorAxis: 1
+  MajorAxis: 8
+  MinorAxis: 6
   rows: 4
   distanceBetweenRows: 1.3
   SpawnPoints: []
