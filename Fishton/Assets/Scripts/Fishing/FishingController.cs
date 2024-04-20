@@ -12,6 +12,14 @@ public class FishingController : MonoBehaviour
         {
             Debug.Log(NewState);
         };
+        EventManager.OnFishEncounterFinished += () => 
+        {
+            if(CurrentEncounter != null)
+            {
+                Destroy(CurrentEncounter);
+                CurrentEncounter = null;
+            }
+        };
     }
 
     private void Update()
@@ -32,6 +40,7 @@ public class FishingController : MonoBehaviour
 
     private void StartNewEncounter()
     {
+        Debug.Log("Creating New Encounter");
         CurrentEncounter = gameObject.AddComponent<FishEncounter>(); 
         CurrentEncounter.StartEncounter();
     }
