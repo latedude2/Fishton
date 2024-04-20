@@ -8,7 +8,7 @@ public class LocalPlayerComponent : NetworkBehaviour
 {
     private void Awake()
     {
-        enabled = IsLocalPlayer;
+        //enabled = IsLocalPlayer;
 
         if (enabled)
         {

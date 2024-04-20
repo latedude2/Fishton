@@ -199,6 +199,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Scrollbar: {fileID: 9043525930650472017}
   FishImage: {fileID: 7849870985281030337}
+  InputAcceleration: 0.04
+  NoInputAcceleration: -0.02
+  MaxVelocityPos: 0.1
+  MaxVelocityNeg: -0.1
+  FishSpeed: 2
+  MinFishPosInterval: 0.2
+  MaxFishPosInterval: 2
 --- !u!1 &7324747010403166818
 GameObject:
   m_ObjectHideFlags: 0

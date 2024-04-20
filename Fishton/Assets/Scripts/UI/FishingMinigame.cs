@@ -73,7 +73,7 @@ public class FishingMinigame : MonoBehaviour
         float Acceleration = 0.0f;
         if (Input.GetMouseButton(0))
         {
-            Acceleration += InputAcceleration;
+            Acceleration = InputAcceleration;
         }
         else
         {
@@ -83,7 +83,10 @@ public class FishingMinigame : MonoBehaviour
                 return;
             }
 
-            Acceleration += NoInputAcceleration;
+            if(1.0f - Position <= float.Epsilon)
+                Velocity = 0.0f;
+
+            Acceleration = NoInputAcceleration;
         }
 
         Velocity += Acceleration * Time.deltaTime;
