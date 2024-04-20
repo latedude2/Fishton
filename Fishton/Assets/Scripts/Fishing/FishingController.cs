@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class FishingController : MonoBehaviour
 {
+    private EventManager Events { get; set; }
     private FishEncounter CurrentEncounter = null;
     
     private void Awake()
     {
-        EventManager.OnFishingStateChanged += (FishEncounterState NewState) => 
+        Events = EventManager.Get(gameObject);
+        Events.OnFishingStateChanged += (FishEncounterState NewState) => 
         {
             Debug.Log(NewState);
         };
-        EventManager.OnFishEncounterFinished += () => 
+        Events.OnFishEncounterFinished += () => 
         {
             if(CurrentEncounter != null)
             {

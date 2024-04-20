@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class FishingStateColourer : MonoBehaviour
 {
+    private EventManager Events { get; set; }
     private FishEncounterState LastSeenState;
 
     private void Awake()
     {
-        EventManager.OnFishingStateChanged += OnFishingStateChanged;
-        EventManager.OnFishEncounterFinished += OnFishingCompleted;
+        Events = EventManager.Get(gameObject);
+        Events.OnFishingStateChanged += OnFishingStateChanged;
+        Events.OnFishEncounterFinished += OnFishingCompleted;
 
         SetColor(Color.white);
     }
