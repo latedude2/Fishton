@@ -23,6 +23,7 @@ public class ConnectGame : MonoBehaviour
     [SerializeField] GameObject _sessionCodeContainer;
     [SerializeField] TMP_InputField _sessionCodeInputField;
     [SerializeField] TMP_Text _sessionCodeText;
+    [SerializeField] TMP_Text _sessionCodeTextInGame;
 
     private void Start()
     {
@@ -61,6 +62,7 @@ public class ConnectGame : MonoBehaviour
         _HideSessionCodeInput();
         _ShowSessionCode();
         StartHostWithRelay();
+        GetComponent<MainMenuController>().AnimateOut();
     }
 
     
@@ -100,6 +102,7 @@ public class ConnectGame : MonoBehaviour
         var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
         Debug.Log($"Join code: {joinCode}");
         _sessionCodeText.text = joinCode;
+        _sessionCodeTextInGame.text = joinCode;
         return NetworkManager.Singleton.StartHost() ? joinCode : null;
     }
 
