@@ -6,6 +6,14 @@ public class FishingController : MonoBehaviour
 {
     private FishEncounter CurrentEncounter = null;
     
+    private void Awake()
+    {
+        EventManager.OnFishingStateChanged += (FishEncounterState NewState) => 
+        {
+            Debug.Log(NewState);
+        };
+    }
+
     private void Update()
     {
         if(Input.GetMouseButton(0))
@@ -26,9 +34,5 @@ public class FishingController : MonoBehaviour
     {
         CurrentEncounter = gameObject.AddComponent<FishEncounter>(); 
         CurrentEncounter.StartEncounter();
-        EventManager.OnFishingStateChanged += (FishEncounterState NewState) => 
-        {
-            Debug.Log(NewState);
-        };
     }
 }

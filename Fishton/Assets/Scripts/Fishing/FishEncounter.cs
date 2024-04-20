@@ -15,6 +15,9 @@ public class FishEncounter : MonoBehaviour
         {
             _CurrentState = value;
             EventManager.OnFishingStateChanged?.Invoke(value);
+
+            if(value == FishEncounterState.Caught)
+                EventManager.OnFishCaught?.Invoke();
         }
     }
     private FishEncounterState _CurrentState = FishEncounterState.None;
@@ -31,7 +34,17 @@ public class FishEncounter : MonoBehaviour
         CurrentState = FishEncounterState.Idle;
         yield return new WaitForSeconds(5);
         CurrentState = FishEncounterState.Hooked;
-        yield return new WaitForSeconds(0.5f);
-        CurrentState = FishEncounterState.Caught;
+        
+        WaitForHookedEventHandler HookHandler = new WaitForHookedEventHandler();
+        yield return HookHandler;
+
+        if(HookHandler.DidPlayerSucceed)
+        {
+            CurrentState = FishEncounterState.Caught;
+        }
+        else
+        {
+            CurrentState = FishEncounterState.Failed;
+        }
     }
 }
