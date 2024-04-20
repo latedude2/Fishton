@@ -28,6 +28,11 @@ public class Player : NetworkBehaviour
         
     }
 
+    public override void OnDestroy()
+    {
+        PlayerPositioning.GetSpawnPoint(positionIndex.Value).isOccupied = false;
+    }
+
     void OnPositionIndexChanged(int oldIndex, int newIndex)
     {
         transform.position = PlayerPositioning.instance.SpawnPoints[newIndex].transform.position;
