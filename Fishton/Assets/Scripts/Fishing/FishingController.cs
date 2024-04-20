@@ -4,11 +4,31 @@ using UnityEngine;
 
 public class FishingController : MonoBehaviour
 {
+    private FishEncounter CurrentEncounter = null;
+    
     private void Update()
     {
         if(Input.GetMouseButton(0))
         {
-            Debug.Log("Hello");
+            HandleInput();
         }
+    }
+
+    private void HandleInput()
+    {
+        if(CurrentEncounter == null)
+        {
+            StartNewEncounter();
+        }
+    }
+
+    private void StartNewEncounter()
+    {
+        CurrentEncounter = gameObject.AddComponent<FishEncounter>(); 
+        CurrentEncounter.StartEncounter();
+        EventManager.OnFishingStateChanged += (FishEncounterState NewState) => 
+        {
+            Debug.Log(NewState);
+        };
     }
 }
