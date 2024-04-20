@@ -32,7 +32,7 @@ public class PlayerPositioning : MonoBehaviour
                 float angle = i * Mathf.PI * 2 / ObjectsPerRow + j * 25f;
                 Vector3 newPos = new Vector3(Mathf.Cos(angle) * MajorAxis, 0, Mathf.Sin(angle) * MinorAxis); // Position on the ellipse
                 GameObject go = Instantiate(prefab, newPos, Quaternion.identity); // Instantiate a new GameObject
-                SpawnPoints.Add(go);
+                PlayerPositioning.instance.SpawnPoints.Add(go);
 
                 go.transform.LookAt(Vector3.zero); // Make the GameObject look at the center of the ellipse
             }
@@ -45,9 +45,9 @@ public class PlayerPositioning : MonoBehaviour
     //Server-only
     static public int GetFirstAvailableSpawnPoint()
     {
-        for (int i = 0; i < instance.SpawnPoints.Count; i++)
+        for (int i = 0; i < PlayerPositioning.instance.SpawnPoints.Count; i++)
         {
-            if (!instance.SpawnPoints[i].GetComponent<SpawnPoint>().isOccupied)
+            if (!PlayerPositioning.instance.SpawnPoints[i].GetComponent<SpawnPoint>().isOccupied)
             {
                 return i;
             }
@@ -58,6 +58,6 @@ public class PlayerPositioning : MonoBehaviour
 
     static public SpawnPoint GetSpawnPoint(int index)
     {
-        return instance.SpawnPoints[index].GetComponent<SpawnPoint>();
+        return PlayerPositioning.instance.SpawnPoints[index].GetComponent<SpawnPoint>();
     }
 }

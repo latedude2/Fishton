@@ -165,7 +165,7 @@ public class CustomRelayUtp : MonoBehaviour
         hostDriver = NetworkDriver.Create(settings);
 
         // Bind to the Relay server.
-        if (hostDriver.Bind(NetworkEndPoint.AnyIpv4) != 0)
+        if (hostDriver.Bind(NetworkEndpoint.AnyIpv4) != 0)
         {
             Debug.LogError("Host client failed to bind");
         }
@@ -243,7 +243,7 @@ public class CustomRelayUtp : MonoBehaviour
         playerDriver = NetworkDriver.Create(settings);
 
         // Bind to the Relay server.
-        if (playerDriver.Bind(NetworkEndPoint.AnyIpv4) != 0)
+        if (playerDriver.Bind(NetworkEndpoint.AnyIpv4) != 0)
         {
             Debug.LogError("Player client failed to bind");
         }

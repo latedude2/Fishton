@@ -16,7 +16,7 @@ public class WaitForHookedEventHandler : CustomYieldInstruction
     public override bool keepWaiting {
         get 
         {
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonUp(0))
             {
                 DidPlayerSucceed = true;
                 return false;
