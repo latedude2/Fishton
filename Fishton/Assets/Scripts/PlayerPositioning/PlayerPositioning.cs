@@ -15,6 +15,7 @@ public class PlayerPositioning : MonoBehaviour
     public static PlayerPositioning instance;
     void Awake()
     {
+        
         if (instance == null)
         {
             instance = this;
@@ -30,11 +31,11 @@ public class PlayerPositioning : MonoBehaviour
             for (int i = 0; i < ObjectsPerRow; i++)
             {
                 float angle = i * Mathf.PI * 2 / ObjectsPerRow + j * 25f;
-                Vector3 newPos = new Vector3(Mathf.Cos(angle) * MajorAxis, 0, Mathf.Sin(angle) * MinorAxis); // Position on the ellipse
+                Vector3 newPos = transform.position + new Vector3(Mathf.Cos(angle) * MajorAxis, 0, Mathf.Sin(angle) * MinorAxis); // Position on the ellipse
                 GameObject go = Instantiate(prefab, newPos, Quaternion.identity); // Instantiate a new GameObject
                 PlayerPositioning.instance.SpawnPoints.Add(go);
 
-                go.transform.LookAt(Vector3.zero); // Make the GameObject look at the center of the ellipse
+                go.transform.LookAt(transform.position); // Make the GameObject look at the center of the ellipse
             }
             MajorAxis = MajorAxis + distanceBetweenRows;
             MinorAxis = MinorAxis + distanceBetweenRows;
