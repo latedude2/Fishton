@@ -117,11 +117,8 @@ public class ConnectGame : MonoBehaviour
 
         var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCode);
 
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "utp"));
+        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
         return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
     }
     
-
-
-
 }
