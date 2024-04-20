@@ -43,32 +43,21 @@ public class PlayerPositioning : MonoBehaviour
 
 
     //Server-only
-    static public GameObject GetFirstAvailableSpawnPoint()
+    static public int GetFirstAvailableSpawnPoint()
     {
-        foreach (GameObject sp in instance.SpawnPoints)
+        for (int i = 0; i < instance.SpawnPoints.Count; i++)
         {
-            if (!sp.GetComponent<SpawnPoint>().isOccupied)
+            if (!instance.SpawnPoints[i].GetComponent<SpawnPoint>().isOccupied)
             {
-                sp.GetComponent<SpawnPoint>().isOccupied = true;
-                return sp;
+                return i;
             }
         }
-        return null;
+        return -1;
     } 
 
 
     static public SpawnPoint GetSpawnPoint(int index)
     {
-        for(int i = 0; i < 4; i++)
-        {
-            for(int j = i * 25; j < 25 * (i + 1); j++)
-            {
-                if(instance.SpawnPoints[j].GetComponent<SpawnPoint>().isOccupied == false)
-                    return instance.SpawnPoints[j].GetComponent<SpawnPoint>();
-                
-            }
-        }
-
-        return null;
+        return instance.SpawnPoints[index].GetComponent<SpawnPoint>();
     }
 }
