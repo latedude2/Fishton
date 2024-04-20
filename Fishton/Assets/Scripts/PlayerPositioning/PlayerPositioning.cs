@@ -12,10 +12,18 @@ public class PlayerPositioning : MonoBehaviour
     public float distanceBetweenRows = 1.3f; // Distance between ellipses
     
     public List<GameObject> SpawnPoints;
-
-    // Start is called before the first frame update
+    public static PlayerPositioning instance;
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+
         int ObjectsPerRow = numberOfObjects / rows; // Number of objects per ellipse
         for (int j = 0; j < rows; j++) // For 4 ellipses
         {
@@ -31,5 +39,36 @@ public class PlayerPositioning : MonoBehaviour
             MajorAxis = MajorAxis + distanceBetweenRows;
             MinorAxis = MinorAxis + distanceBetweenRows;
         }
+    }
+
+
+    //Server-only
+    static public GameObject GetFirstAvailableSpawnPoint()
+    {
+        foreach (GameObject sp in instance.SpawnPoints)
+        {
+            if (!sp.GetComponent<SpawnPoint>().isOccupied)
+            {
+                sp.GetComponent<SpawnPoint>().isOccupied = true;
+                return sp;
+            }
+        }
+        return null;
+    } 
+
+
+    static public SpawnPoint GetSpawnPoint(int index)
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            for(int j = i * 25; j < 25 * (i + 1); j++)
+            {
+                if(instance.SpawnPoints[j].GetComponent<SpawnPoint>().isOccupied == false)
+                    return instance.SpawnPoints[j].GetComponent<SpawnPoint>();
+                
+            }
+        }
+
+        return null;
     }
 }
