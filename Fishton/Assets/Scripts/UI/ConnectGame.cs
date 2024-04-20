@@ -34,6 +34,7 @@ public class ConnectGame : MonoBehaviour
         _joinButton.onClick.AddListener(() => { _ButtonPressed_Join(); });
         _hostButton.onClick.AddListener(() => { _ButtonPressed_Host(); });
         _playButton.onClick.AddListener(() => { _ButtonPressed_Play(); });
+        _quitButton.onClick.AddListener(() => { Application.Quit(); });
     }
 
     private void _ButtonPressed_Join()
