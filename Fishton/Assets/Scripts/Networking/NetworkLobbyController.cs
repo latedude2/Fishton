@@ -8,11 +8,15 @@ using Unity.Services.Relay.Models;
 using Unity.Services.Relay;
 using UnityEngine;
 using System.Linq;
+using System;
+using System.Threading.Tasks;
+using Unity.Services.Core;
 
 public class NetworkLobbyController
 {
     private string _playerID = "Not signed in";
-    string playerId = "Not signed in";
+    string _joinCode = "n/a";
+
     string autoSelectRegionName = "auto-select (QoS)";
     int regionAutoSelectIndex = 0;
     List<Region> regions = new List<Region>();
@@ -35,33 +39,91 @@ public class NetworkLobbyController
 
 
     public string playerID => _playerID;
+    public string joinCode => _joinCode;
 
     public NetworkLobbyController()
     {
-
+        StartUnityServive();
     }
 
-    public async void StartHostProcess()
+    public async void StartUnityServive()
     {
-        //Sign in
-        _SignIn();
-
-        //Get regions
-        _GetRegions();
-
-        //Allocate relay
-        _AllocateRelay();
+        // Initialize Unity Services
+        await UnityServices.InitializeAsync();
+        await _SignIn();
     }
 
-    private async void _SignIn()
+    public async Task StartHostProcess()
+    {
+        //await _SignIn();
+
+        await _Region();
+
+        await _AllocateRelay();
+
+        _BindHost();
+
+        await _GetJoinCode();
+
+        isHost = true;
+    }
+    public void StopHostProcess()
+    {
+        isHost = false;
+    }
+
+    public async Task StartClientProcess(string sessionCode)
+    {
+        //await _SignIn();
+
+        await Task.Delay(1000);
+
+        await _Join(sessionCode);
+
+        _BindClient();
+
+        _ConnectClient();
+    }
+
+
+    private async Task _SignIn()
     {
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         _playerID = AuthenticationService.Instance.PlayerId;
         Debug.Log($"Signed in. Player ID: {_playerID}");
     }
 
-    private async void _GetRegions()
+    private async Task _Join(string sessionCode)
     {
+        // Input join code in the respective input field first.
+        if (String.IsNullOrEmpty(sessionCode))
+        {
+            Debug.LogError("Please input a join code.");
+            return;
+        }
+
+        Debug.Log("Player - Joining host allocation using join code. Upon success, I have 10 seconds to BIND to the Relay server that I've allocated.");
+        Debug.Log($"the session code is {sessionCode}");
+        try
+        {
+            playerAllocation = await RelayService.Instance.JoinAllocationAsync(sessionCode);
+            Debug.Log("Player Allocation ID: " + playerAllocation.AllocationId);
+        }
+        catch (RelayServiceException ex)
+        {
+            Debug.LogError(ex.Message + "\n" + ex.StackTrace);
+        }
+
+        Debug.Log($"The region is {playerAllocation?.Region}");
+        Debug.Log($"The region is ???");
+
+    }
+
+
+    #region Host
+    private async Task _Region()
+    {
+        Debug.Log("Host - Getting regions.");
         var allRegions = await RelayService.Instance.ListRegionsAsync();
         regions.Clear();
         regionOptions.Clear();
@@ -73,16 +135,16 @@ public class NetworkLobbyController
         }
     }
 
-    private async void _AllocateRelay()
+    private async Task _AllocateRelay()
     {
         Debug.Log("Host - Creating an allocation. Upon success, I have 10 seconds to BIND to the Relay server that I've allocated.");
 
-        // Determine region to use (user-selected or auto-select/QoS)
-        string region = regions[0].Id;
+        // 0 should be the default region index
+        string region = "europe-north1";// regions[1].Id;
         Debug.Log($"The chosen region is: {region ?? autoSelectRegionName}");
 
         // Set max connections. Can be up to 100, but note the more players connected, the higher the bandwidth/latency impact.
-        int maxConnections = 4;
+        int maxConnections = 100;
 
         // Important: Once the allocation is created, you have ten seconds to BIND, else the allocation times out.
         hostAllocation = await RelayService.Instance.CreateAllocationAsync(maxConnections, region);
@@ -93,7 +155,7 @@ public class NetworkLobbyController
         serverConnections = new NativeList<NetworkConnection>(maxConnections, Allocator.Persistent);
     }
 
-    private async void _BindHost()
+    private void _BindHost()
     {
         Debug.Log("Host - Binding to the Relay server using UTP.");
 
@@ -122,6 +184,62 @@ public class NetworkLobbyController
             {
                 Debug.Log("Host client bound to Relay server");
             }
+        }      
+    }
+
+
+    private async Task _GetJoinCode()
+    {
+        Debug.Log("Host - Getting a join code for my allocation. I would share that join code with the other players so they can join my session.");
+
+        try
+        {
+            _joinCode = await RelayService.Instance.GetJoinCodeAsync(hostAllocation.AllocationId);
+            Debug.Log("Host - Got join code: " + joinCode);
+        }
+        catch (RelayServiceException ex)
+        {
+            Debug.LogError(ex.Message + "\n" + ex.StackTrace);
         }
     }
+
+    #endregion Host
+
+
+    #region Client
+
+    private void _BindClient()
+    {
+        Debug.Log("Player - Binding to the Relay server using UTP.");
+
+        // Extract the Relay server data from the Join Allocation response.
+        var relayServerData = new RelayServerData(playerAllocation, "udp");
+
+        // Create NetworkSettings using the Relay server data.
+        var settings = new NetworkSettings();
+        settings.WithRelayParameters(ref relayServerData);
+
+        // Create the Player's NetworkDriver from the NetworkSettings object.
+        playerDriver = NetworkDriver.Create(settings);
+
+        // Bind to the Relay server.
+        if (playerDriver.Bind(NetworkEndPoint.AnyIpv4) != 0)
+        {
+            Debug.LogError("Player client failed to bind");
+        }
+        else
+        {
+            Debug.Log("Player client bound to Relay server");
+        }
+    }
+
+    private void _ConnectClient()
+    {
+        Debug.Log("Player - Connecting to Host's client.");
+
+        // Sends a connection request to the Host Player.
+        clientConnection = playerDriver.Connect();
+    }
+
+    #endregion Client
 }
