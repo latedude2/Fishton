@@ -96,7 +96,9 @@ public class ConnectGame : MonoBehaviour
         Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections, "europe-north1");
         //Set relay server data
         #if UNITY_WEBGL
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "wws"));
+        var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        unityTransport.SetRelayServerData(new RelayServerData(allocation, "wss"));
+        unityTransport.UseWebSockets = true;
         #endif
         #if !UNITY_WEBGL
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "dtls"));
@@ -120,7 +122,9 @@ public class ConnectGame : MonoBehaviour
         var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
         Debug.Log($"Join allocation: {joinAllocation}");
         #if UNITY_WEBGL
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "wws"));
+        var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        unityTransport.SetRelayServerData(new RelayServerData(joinAllocation, "wss"));
+        unityTransport.UseWebSockets = true;
         #endif
         #if !UNITY_WEBGL
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
