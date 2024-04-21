@@ -94,6 +94,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: trex
       objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: 4f21a13d07d79bc43a295b699e638d07,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f43cb26b205c884686e982e12a979bf, type: 2}
     - target: {fileID: 2371647777209246491, guid: 4f21a13d07d79bc43a295b699e638d07,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -196,6 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 380acf880dee16d4d8fa6f389252e251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Renderer: {fileID: 0}
 --- !u!4 &8823217048120787155 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2371647777209246491, guid: 4f21a13d07d79bc43a295b699e638d07,

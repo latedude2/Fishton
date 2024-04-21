@@ -56,7 +56,7 @@ public class ConnectGame : MonoBehaviour
         }
         StartClientWithRelay(sessionCode);
         //GetComponent<MainMenuController>().AnimateOut();
-        HideMainMenuUI();
+        
     }
 
     private void _ButtonPressed_Host()
@@ -145,6 +145,7 @@ public class ConnectGame : MonoBehaviour
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
         #endif
         Debug.Log("Starting client");
+        HideMainMenuUI();
         return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
     }
     
