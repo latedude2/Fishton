@@ -14,6 +14,17 @@ public class FishingController : LocalPlayerComponent
         Events.OnFishingStateChanged += (FishEncounterState NewState) => 
         {
             Debug.Log(NewState);
+
+            if (NewState == FishEncounterState.Hooked)
+            {
+                if (IsLocalPlayer)
+                    GetComponentInChildren<FishAlert>().ShowWarning();
+            }
+            else
+            {
+                if (IsLocalPlayer)
+                    GetComponentInChildren<FishAlert>().HideWarning();
+            }
         };
         Events.OnFishEncounterFinished += () => 
         {

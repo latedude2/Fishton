@@ -7,12 +7,16 @@ public class FishingWorldComponent : MonoBehaviour
     [SerializeField]
     private float PotentialHitRadius;
 
-    [SerializeField]
-    private FishingBob FishingBobPrefab;
+    [SerializeField] private FishingBob FishingBobPrefab;
+    [SerializeField] private GameObject _fishingLinePrefab;
+    [SerializeField] float _lineAppearDelay = 0.3f;
+
+    [SerializeField] Transform _fishingRodEndPoint;
 
     public EventManager Events { get; private set; }
 
     GameObject _spawnedBobObject;
+    FishingLine _fishingLine;
 
     private Vector3 FinalHitPosition;
 
@@ -31,6 +35,7 @@ public class FishingWorldComponent : MonoBehaviour
         {
             //Delete the bob
             Destroy(_spawnedBobObject);
+            Destroy(_fishingLine.gameObject);
         }
 
         if (NewState != FishEncounterState.Throwing)
@@ -69,12 +74,33 @@ public class FishingWorldComponent : MonoBehaviour
         
         FinalHitPosition = Hit.point;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(_lineAppearDelay);
+
+        //Spawn a line
+        GameObject lineObj = Instantiate(_fishingLinePrefab);
+        _fishingLine = lineObj.GetComponent<FishingLine>();
+
+        //Throw the bob into water along a trajectory
+        float progress = 0f;
+        while (progress <= 100f)
+        {
+            Vector3 startPosition = _fishingRodEndPoint.position;
+            Vector3 endPosition = FinalHitPosition;
+
+            _fishingLine.ExtendLine(startPosition, endPosition, progress);
+
+            progress += _fishingLine.speed * Time.deltaTime;
+            yield return null;
+        }
 
         FishingBob FishingBob = Instantiate(FishingBobPrefab, FinalHitPosition, Quaternion.identity);
         FishingBob.Initialize(Events);
+                
         //Keep track of the object so we can delete it later when the encounter is done
         _spawnedBobObject = FishingBob.gameObject;
+
+        yield return new WaitForSeconds(0.5f);
+
     }
 
     private void OnDrawGizmos()

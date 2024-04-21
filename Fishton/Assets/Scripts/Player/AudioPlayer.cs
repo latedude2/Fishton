@@ -9,7 +9,7 @@ public class AudioPlayer : NetworkBehaviour
     private EventManager Events { get; set; }
     private FishEncounterState LastSeenState;
 
-
+    public float throwSoundDelay = 0.6f;
     public AudioSource Audio;
     public AudioClip FishCaught;
     public AudioClip FishPulled;
@@ -38,6 +38,16 @@ public class AudioPlayer : NetworkBehaviour
 
     private void OnFishingStateChanged(FishEncounterState NewState)
     {
+        StartCoroutine(_Co_PlayClip(NewState));
+    }
+
+    IEnumerator _Co_PlayClip(FishEncounterState NewState)
+    {
+        if (NewState == FishEncounterState.Throwing)
+        {
+            yield return new WaitForSecondsRealtime(throwSoundDelay);
+        }
+
         PlayClip(GetAudioFromState(NewState));
     }
 
