@@ -43,7 +43,7 @@ public class FishingWorldComponent : MonoBehaviour
     {
         //Delete the bob
         Destroy(_spawnedBobObject);
-        Destroy(_fishingLine.gameObject);
+        Destroy(_fishingLine?.gameObject);
     }
 
     private void OnStateChanged(FishEncounterState NewState)
@@ -52,7 +52,7 @@ public class FishingWorldComponent : MonoBehaviour
         {
             //Delete the bob
             Destroy(_spawnedBobObject);
-            Destroy(_fishingLine.gameObject);
+            Destroy(_fishingLine?.gameObject);
         }
 
         if (NewState != FishEncounterState.Throwing)
