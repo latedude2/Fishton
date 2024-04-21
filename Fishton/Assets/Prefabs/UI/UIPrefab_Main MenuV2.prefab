@@ -480,7 +480,7 @@ MonoBehaviour:
   _sessionCodeInputField: {fileID: 2814146106300799189}
   _sessionCodeText: {fileID: 5479008279351623191}
   _sessionCodeTextInGame: {fileID: 1063238285106259422}
-  _audioSource: {fileID: 0}
+  _audioSource: {fileID: 5672769181330398934}
   _thingsToHide:
   - {fileID: 8961581053928452793}
   - {fileID: 5490115024986192666}
