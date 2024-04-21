@@ -25,6 +25,8 @@ public class ConnectGame : MonoBehaviour
     [SerializeField] TMP_Text _sessionCodeText;
     [SerializeField] TMP_Text _sessionCodeTextInGame;
 
+    public AudioSource _audioSource;
+
     [SerializeField] List<GameObject> _thingsToHide = new List<GameObject>();
 
     private void Start()
@@ -145,6 +147,7 @@ public class ConnectGame : MonoBehaviour
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
         #endif
         Debug.Log("Starting client");
+        _audioSource.Play();
         HideMainMenuUI();
         return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
     }
