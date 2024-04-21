@@ -18,6 +18,7 @@ public class FishEncounter : MonoBehaviour
         set
         {
             _player.currentState = value;
+            /*
             Events.OnFishingStateChanged?.Invoke(value);
 
             if(value == FishEncounterState.Caught)
@@ -25,6 +26,7 @@ public class FishEncounter : MonoBehaviour
 
             if((value & FishEncounterState.Finished) == value)
                 StartCoroutine("HandleFinished");
+                */
         }
     }
 
