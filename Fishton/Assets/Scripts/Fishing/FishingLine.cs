@@ -31,4 +31,9 @@ public class FishingLine : MonoBehaviour
             endPoint
         });
     }
+
+    public void StartTracking()
+    {
+
+    }
 }
