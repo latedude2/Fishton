@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public delegate void OnFishingMinigameFinishedDelegate(bool WonGame);
+public delegate void OnReelFishInDelegate();
 
 public class FishingMinigame : MonoBehaviour
 {
@@ -83,7 +84,7 @@ public class FishingMinigame : MonoBehaviour
 
     private float HandlePosition;
     private float FishPosition;
-    
+
     private float Velocity;
     private float FishTargetPosition;
     private float LastFishPositionUpdate;
@@ -91,6 +92,11 @@ public class FishingMinigame : MonoBehaviour
     private float CurrentPoints;
     private bool DidWin;
     private float WonTime;
+
+    private float DelayUITime = 1.0f;
+    private bool ActivatePanel = false;
+    public OnReelFishInDelegate OnReelFishIn;
+    private bool FishReeled = false;
 
     private void Awake()
     {
@@ -108,23 +114,37 @@ public class FishingMinigame : MonoBehaviour
 
     private void Update()
     {
-        if(DidWin)
+        if (ActivatePanel)
         {
-            if(Input.GetMouseButtonDown(0) && Time.time - WonTime > 1.0f)
+            DelayUITime -= Time.deltaTime;
+
+            if (DelayUITime < 0)
+            {
+                DidWin = true;
+                WonPanel.gameObject.SetActive(true);
+                WonTime = Time.time;
+                ActivatePanel = false;
+            }
+        }
+
+        if (DidWin && !ActivatePanel)
+        {
+            if (Input.GetMouseButtonDown(0) && Time.time - WonTime > 1.0f)
             {
                 OnGameFinished.Invoke(true);
             }
             return;
         }
+
         HandleAcceleration();
         UpdatePosition();
         SetPosition(HandlePosition, HandleRect, HandleSize);
 
         FishPosition = Mathf.Lerp(FishPosition, FishTargetPosition, FishSpeed * Time.deltaTime);
         SetPosition(FishPosition, FishRect, FishSize);
-        
 
-        if(ShouldUpdateFishPosition)
+
+        if (ShouldUpdateFishPosition)
             SelectNewFishPosition();
 
         HandleGrantPoints();
@@ -139,13 +159,13 @@ public class FishingMinigame : MonoBehaviour
         }
         else
         {
-            if(HandlePosition <= float.Epsilon)
+            if (HandlePosition <= float.Epsilon)
             {
                 Velocity = 0.0f;
                 return;
             }
 
-            if(1.0f - HandlePosition <= float.Epsilon)
+            if (1.0f - HandlePosition <= float.Epsilon)
                 Velocity = 0.0f;
 
             Acceleration = NoInputAcceleration;
@@ -167,7 +187,7 @@ public class FishingMinigame : MonoBehaviour
         // Percentage of the bar that we can work with
         float WorkArea = Mathf.Clamp(1.0f - Size, 0.0f, 1.0f);
         float Offset = WorkArea * PercentagePosition;
-        
+
         Vector2 Min = RectTrans.anchorMin;
         Min.y = Offset;
         RectTrans.anchorMin = Min;
@@ -188,7 +208,7 @@ public class FishingMinigame : MonoBehaviour
 
     private void HandleGrantPoints()
     {
-        if(IsWithinFish)
+        if (IsWithinFish)
         {
             CurrentPoints += Time.deltaTime * GainPointsSpeed;
         }
@@ -196,26 +216,31 @@ public class FishingMinigame : MonoBehaviour
         {
             CurrentPoints -= Time.deltaTime * LosePointsSpeed;
         }
-        
+
         ProgressBar.fillAmount = CurrentPoints / RequiredPoints;
 
-        if(1.0f - ProgressBar.fillAmount <= float.Epsilon)
+        if (1.0f - ProgressBar.fillAmount <= float.Epsilon)
             HandleGameFinished(true);
-        else if(ProgressBar.fillAmount <= float.Epsilon)
-            HandleGameFinished(false);    
+        else if (ProgressBar.fillAmount <= float.Epsilon)
+            HandleGameFinished(false);
     }
 
     private void HandleGameFinished(bool Won)
     {
-        if(Won)
+        if (Won)
         {
-            DidWin = true;
-            WonPanel.gameObject.SetActive(true);
+            if (!FishReeled)
+            {
+                OnReelFishIn.Invoke();
+                FishReeled = true;
+            }
+
             FishingContainer.gameObject.SetActive(false);
-            WonTime = Time.time;
+            ActivatePanel = true;
+
             return;
         }
-        
+
         OnGameFinished.Invoke(Won);
     }
 }

@@ -108,6 +108,7 @@ MonoBehaviour:
   MinigamePrefab: {fileID: 2240292814533652648, guid: cb0246b6c41e124408a2023e61479b28,
     type: 3}
   CheatWinFive: 0
+  fish: {fileID: 4526875851437929164, guid: 0a5cf3403fc81374b8aa59a4b3ba3118, type: 3}
 --- !u!114 &-7828375666521941692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,7 +258,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fish: {fileID: 4526875851437929164, guid: 0a5cf3403fc81374b8aa59a4b3ba3118, type: 3}
-  activate: 0
 --- !u!1 &7294565440717340482
 GameObject:
   m_ObjectHideFlags: 0
