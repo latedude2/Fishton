@@ -98,7 +98,7 @@ public class FishingWorldComponent : MonoBehaviour
                 
         //Keep track of the object so we can delete it later when the encounter is done
         _spawnedBobObject = FishingBob.gameObject;
-
+        _fishingLine.StartTracking(_fishingRodEndPoint, _spawnedBobObject.transform);
         yield return new WaitForSeconds(0.5f);
 
     }
