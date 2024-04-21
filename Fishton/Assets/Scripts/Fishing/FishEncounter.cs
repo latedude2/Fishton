@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class FishEncounter : MonoBehaviour
 {
-    //Player _player;
     private EventManager Events { get; set; }
     FishEncounterState _currentState;
     private FishEncounterState currentState
@@ -35,28 +34,10 @@ public class FishEncounter : MonoBehaviour
         Events = EventManager.Get(gameObject);
     }
 
-    private void OnDestroy()
+    public void StartEncounter()
     {
-        //_player.onFishEncounterChange -= _OnFishEncounterChange;
-    }
-
-    public void StartEncounter(/*Player player*/)
-    {
-        //_player = player;
-        //player.onFishEncounterChange += _OnFishEncounterChange;
         StartCoroutine(HandleEventLoop());
     }
-
-    /*private void _OnFishEncounterChange(FishEncounterState previousState, FishEncounterState newState)
-    {
-        Events.OnFishingStateChanged?.Invoke(newState);
-
-        if (newState == FishEncounterState.Caught)
-            Events.OnFishCaught?.Invoke();
-
-        if ((newState & FishEncounterState.Finished) == newState)
-            HandleFinished();
-    }*/
 
     public IEnumerator HandleEventLoop()
     {

@@ -12,6 +12,8 @@ public class FishingWorldComponent : MonoBehaviour
 
     public EventManager Events { get; private set; }
 
+    GameObject _spawnedBobObject;
+
     private Vector3 FinalHitPosition;
 
     private Vector3? StartTracePosition;
@@ -25,10 +27,15 @@ public class FishingWorldComponent : MonoBehaviour
 
     private void OnStateChanged(FishEncounterState NewState)
     {
-        if(NewState != FishEncounterState.Throwing)
-            return;
+        if ((NewState & FishEncounterState.Finished) == NewState)
+        {
+            //Delete the bob
+            Destroy(_spawnedBobObject);
+        }
 
-        StartCoroutine("StartThrow");
+        if (NewState != FishEncounterState.Throwing)
+            return; 
+        StartCoroutine(StartThrow());
     }
 
     private IEnumerator StartThrow()
@@ -66,6 +73,8 @@ public class FishingWorldComponent : MonoBehaviour
 
         FishingBob FishingBob = Instantiate(FishingBobPrefab, FinalHitPosition, Quaternion.identity);
         FishingBob.Initialize(Events);
+        //Keep track of the object so we can delete it later when the encounter is done
+        _spawnedBobObject = FishingBob.gameObject;
     }
 
     private void OnDrawGizmos()

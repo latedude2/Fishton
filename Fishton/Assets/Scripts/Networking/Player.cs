@@ -12,11 +12,6 @@ public class Player : NetworkBehaviour
 
     public NetworkVariable<int> positionIndex = new NetworkVariable<int>(0);
 
-    //public delegate void FishEncounterChangeHandler(FishEncounterState previousState, FishEncounterState newState);
-    //public FishEncounterChangeHandler onFishEncounterChange { get; set; }
-
-    //public FishEncounterState currentState { get => _CurrentState.Value; set { _CurrentState.Value = value; } }
-
     public void Awake()
     {
         positionIndex.OnValueChanged += OnPositionIndexChanged;

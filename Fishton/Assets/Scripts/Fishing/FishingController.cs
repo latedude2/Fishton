@@ -46,6 +46,6 @@ public class FishingController : LocalPlayerComponent
     {
         Debug.Log("Creating New Encounter");
         CurrentEncounter = gameObject.AddComponent<FishEncounter>(); 
-        CurrentEncounter.StartEncounter(/*GetComponent<Player>()*/);
+        CurrentEncounter.StartEncounter();
     }
 }
