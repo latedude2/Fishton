@@ -403,35 +403,10 @@ MonoBehaviour:
   _sessionCodeInputField: {fileID: 2814146106300799189}
   _sessionCodeText: {fileID: 5479008279351623191}
   _sessionCodeTextInGame: {fileID: 1063238285106259422}
-<<<<<<< Updated upstream
-=======
   _thingsToHide:
   - {fileID: 8961581053928452793}
   - {fileID: 5490115024986192666}
   - {fileID: 1136720240993530621}
---- !u!95 &2923766170288321481
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1200922119127338267}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 004924156938e174a88a528781efec6f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
->>>>>>> Stashed changes
 --- !u!114 &754196998770936849
 MonoBehaviour:
   m_ObjectHideFlags: 0
