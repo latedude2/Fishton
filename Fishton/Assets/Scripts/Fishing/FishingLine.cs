@@ -25,14 +25,15 @@ public class FishingLine : MonoBehaviour
 
     private void Update()
     {
-        if (_lineRenderer == null || _trackingTargetStart == null || _trackingTargetEnd == null)
-        {
-            Destroy(gameObject);
-            return;
-        }
 
         if (_isTracking)
         {
+            if (_lineRenderer == null || _trackingTargetStart == null || _trackingTargetEnd == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             _lineRenderer.SetPositions(new Vector3[] {
             _trackingTargetStart.position,
             _trackingTargetEnd.position
