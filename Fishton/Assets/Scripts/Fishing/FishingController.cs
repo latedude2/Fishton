@@ -14,12 +14,24 @@ public class FishingController : LocalPlayerComponent
         Events.OnFishingStateChanged += (FishEncounterState NewState) => 
         {
             Debug.Log(NewState);
+
+            if (NewState == FishEncounterState.Hooked)
+            {
+                if (IsLocalPlayer)
+                    GetComponentInChildren<FishAlert>().ShowWarning();
+            }
+            else
+            {
+                if (IsLocalPlayer)
+                    GetComponentInChildren<FishAlert>().HideWarning();
+            }
         };
         Events.OnFishEncounterFinished += () => 
         {
             if(CurrentEncounter != null)
             {
-                Destroy(CurrentEncounter);
+                //Moved the destroy method to after the OnFishEncounterFinished invoke
+                //Destroy(CurrentEncounter);
                 CurrentEncounter = null;
             }
         };
@@ -27,7 +39,7 @@ public class FishingController : LocalPlayerComponent
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             HandleInput();
         }
@@ -45,6 +57,6 @@ public class FishingController : LocalPlayerComponent
     {
         Debug.Log("Creating New Encounter");
         CurrentEncounter = gameObject.AddComponent<FishEncounter>(); 
-        CurrentEncounter.StartEncounter(GetComponent<Player>());
+        CurrentEncounter.StartEncounter();
     }
 }

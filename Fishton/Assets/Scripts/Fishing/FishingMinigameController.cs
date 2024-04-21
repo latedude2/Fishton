@@ -10,15 +10,25 @@ public class FishingMinigameController : LocalPlayerComponent
     private EventManager Events;
     private FishingMinigame MinigameInstance;
 
-    /*public void OnEnable()
-    {
-        DoInitialize();
-    }*/
+    [SerializeField]
+    private bool CheatWinFive = false;
+
 
     protected override void MyAwake()
     {
         base.MyAwake();
         DoInitialize();
+    }
+
+    private void Update()
+    {
+        if(CheatWinFive)
+        {
+            for(int i = 0; i < 5; i++)
+                Events.OnFishingMinigameFinished.Invoke(true);
+
+            CheatWinFive = false;
+        }
     }
 
     private void DoInitialize()

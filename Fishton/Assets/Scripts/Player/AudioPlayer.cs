@@ -9,9 +9,10 @@ public class AudioPlayer : NetworkBehaviour
     private EventManager Events { get; set; }
     private FishEncounterState LastSeenState;
 
-
+    public float throwSoundDelay = 0.6f;
     public AudioSource Audio;
     public AudioClip FishCaught;
+    public AudioClip FishPulled;
     public AudioResource FishHooked;
     public AudioClip FishFailed;
     public AudioClip StartFishing;
@@ -29,7 +30,7 @@ public class AudioPlayer : NetworkBehaviour
 
     override public void OnNetworkSpawn()
     {
-        if(IsLocalPlayer)
+        if(!IsLocalPlayer)
         {
             Audio.outputAudioMixerGroup = MixerGroupForOthers;
         }
@@ -37,6 +38,16 @@ public class AudioPlayer : NetworkBehaviour
 
     private void OnFishingStateChanged(FishEncounterState NewState)
     {
+        StartCoroutine(_Co_PlayClip(NewState));
+    }
+
+    IEnumerator _Co_PlayClip(FishEncounterState NewState)
+    {
+        if (NewState == FishEncounterState.Throwing)
+        {
+            yield return new WaitForSecondsRealtime(throwSoundDelay);
+        }
+
         PlayClip(GetAudioFromState(NewState));
     }
 
@@ -52,6 +63,8 @@ public class AudioPlayer : NetworkBehaviour
             case FishEncounterState.Hooked:
                 return FishHooked;
             case FishEncounterState.Caught:
+                return FishPulled;
+            case FishEncounterState.Succeeeded:
                 return FishCaught;
             case FishEncounterState.Failed:
                 return FishFailed;

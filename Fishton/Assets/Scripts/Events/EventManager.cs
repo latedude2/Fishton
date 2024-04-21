@@ -28,8 +28,8 @@ public class EventManager : MonoBehaviour
         return GetRoot(Parent.gameObject);
     }
 
-    public OnFishingStateChangedDelegate OnFishingStateChanged;
-    public OnCaughtFishDelegate OnFishCaught;
-    public OnFishEncounterFinishedDelegate OnFishEncounterFinished;
-    public OnFishingMinigameFinished OnFishingMinigameFinished;
+    public OnFishingStateChangedDelegate OnFishingStateChanged { get; set; }
+    public OnCaughtFishDelegate OnFishCaught { get; set; }
+    public OnFishEncounterFinishedDelegate OnFishEncounterFinished { get; set; }
+    public OnFishingMinigameFinished OnFishingMinigameFinished { get; set; }
 }

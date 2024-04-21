@@ -6,20 +6,20 @@ using System;
 
 public class Player : NetworkBehaviour
 {
-
-    public NetworkVariable<FishEncounterState> _CurrentState = new NetworkVariable<FishEncounterState>(value: FishEncounterState.None, readPerm: NetworkVariableReadPermission.Everyone, writePerm: NetworkVariableWritePermission.Owner);
+    public NetworkVariable<FishEncounterState> networkedFishingState = new NetworkVariable<FishEncounterState>(value: FishEncounterState.None, readPerm: NetworkVariableReadPermission.Everyone, writePerm: NetworkVariableWritePermission.Owner);
 
 
     public NetworkVariable<int> positionIndex = new NetworkVariable<int>(0);
 
-    public delegate void FishEncounterChangeHandler(FishEncounterState previousState, FishEncounterState newState);
-    public FishEncounterChangeHandler onFishEncounterChange { get; set; }
-
-    public FishEncounterState currentState { get => _CurrentState.Value; set { _CurrentState.Value = value; } }
-
     public void Awake()
     {
         positionIndex.OnValueChanged += OnPositionIndexChanged;
+        if (IsLocalPlayer == false)
+        {
+            GetComponent<EventManager>().OnFishingStateChanged += ((newState) => { 
+                networkedFishingState.Value = newState;
+            });
+        }
     }
 
 
@@ -34,12 +34,24 @@ public class Player : NetworkBehaviour
             transform.position = PlayerPositioning.instance.SpawnPoints[positionIndex.Value].transform.position;
             transform.rotation = PlayerPositioning.instance.SpawnPoints[positionIndex.Value].transform.rotation;
         }
-        _CurrentState.OnValueChanged += OnStateChanged;
+
+        if (IsLocalPlayer == false)
+        {
+            networkedFishingState.OnValueChanged += OnStateChanged;
+        }
+        if(IsHost)
+        {
+            networkedFishingState.OnValueChanged += (FishEncounterState OldValue, FishEncounterState NewValue) => 
+            {
+                if(NewValue == FishEncounterState.Succeeeded)
+                    GameState.Instance.Increment();
+            };
+        }
     }
 
     private void OnStateChanged(FishEncounterState previousValue, FishEncounterState newValue)
     {
-        onFishEncounterChange?.Invoke(previousValue, newValue);
+        GetComponent<EventManager>().OnFishingStateChanged?.Invoke(newValue);
     }
 
     public override void OnDestroy()
