@@ -11,6 +11,9 @@ public class Player : NetworkBehaviour
 
     public NetworkVariable<int> positionIndex = new NetworkVariable<int>(0);
 
+    [SerializeField]
+    private GameObject LocalIndicator;
+
     public void Awake()
     {
         positionIndex.OnValueChanged += OnPositionIndexChanged;
@@ -38,6 +41,10 @@ public class Player : NetworkBehaviour
         if (IsLocalPlayer == false)
         {
             networkedFishingState.OnValueChanged += OnStateChanged;
+        }
+        else
+        {
+            LocalIndicator.SetActive(true);
         }
         if(IsHost)
         {
