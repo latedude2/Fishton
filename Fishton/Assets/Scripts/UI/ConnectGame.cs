@@ -148,8 +148,18 @@ public class ConnectGame : MonoBehaviour
         #endif
         Debug.Log("Starting client");
         _audioSource.Play();
-        HideMainMenuUI();
-        return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
+        bool startedSuccessfully = NetworkManager.Singleton.StartClient();
+        if (startedSuccessfully)
+            HideMainMenuUI();
+        else
+        {
+            ShowWrongCodeWarning();
+        }
+        return !string.IsNullOrEmpty(joinCode) && startedSuccessfully;
     }
-    
+
+    private void ShowWrongCodeWarning()
+    {
+        Debug.Log("Wrong logging00");
+    }
 }
