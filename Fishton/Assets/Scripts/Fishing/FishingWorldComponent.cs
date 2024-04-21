@@ -47,7 +47,7 @@ public class FishingWorldComponent : MonoBehaviour
     {
         Vector3 PlayerPosition = transform.position;
         Vector3 HighPosition = PlayerPosition + Vector3.up * 5;
-        Vector3 HighPositionOffset = HighPosition + transform.forward * PotentialHitRadius * 1.5f;
+        Vector3 HighPositionOffset = HighPosition + transform.forward * PotentialHitRadius * 3.0f;
         Vector3 NormalizedOffset = new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(-1.0f, 1.0f));
         Vector3 Offset = NormalizedOffset * PotentialHitRadius;
         Vector3 StartPosition = HighPositionOffset + Offset;
