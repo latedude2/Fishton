@@ -10,6 +10,9 @@ public class FishingMinigameController : LocalPlayerComponent
     private EventManager Events;
     private FishingMinigame MinigameInstance;
 
+    [SerializeField]
+    private bool CheatWinFive = false;
+
 
     [SerializeField]
     private GameObject fish;
@@ -19,6 +22,17 @@ public class FishingMinigameController : LocalPlayerComponent
     {
         base.MyAwake();
         DoInitialize();
+    }
+
+    private void Update()
+    {
+        if(CheatWinFive)
+        {
+            for(int i = 0; i < 5; i++)
+                Events.OnFishingMinigameFinished.Invoke(true);
+
+            CheatWinFive = false;
+        }
     }
 
     private void DoInitialize()

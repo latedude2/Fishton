@@ -32,6 +32,6 @@ public class GameState : NetworkBehaviour
 
     private void FishValueChanged(int Old, int New)
     {
-        OnFishCounterUpdated.Invoke(New);
+        OnFishCounterUpdated?.Invoke(New);
     }
 }

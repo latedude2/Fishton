@@ -25,6 +25,8 @@ public class ConnectGame : MonoBehaviour
     [SerializeField] TMP_Text _sessionCodeText;
     [SerializeField] TMP_Text _sessionCodeTextInGame;
 
+    [SerializeField] List<GameObject> _thingsToHide = new List<GameObject>();
+
     private void Start()
     {
         //Set initial states
@@ -53,7 +55,8 @@ public class ConnectGame : MonoBehaviour
             return;
         }
         StartClientWithRelay(sessionCode);
-        GetComponent<MainMenuController>().AnimateOut();
+        //GetComponent<MainMenuController>().AnimateOut();
+        HideMainMenuUI();
     }
 
     private void _ButtonPressed_Host()
@@ -62,7 +65,16 @@ public class ConnectGame : MonoBehaviour
         //_HideSessionCodeInput();
         //_ShowSessionCode();
         StartHostWithRelay();
-        GetComponent<MainMenuController>().AnimateOut();
+        //GetComponent<MainMenuController>().AnimateOut();
+        HideMainMenuUI();
+    }
+
+    void HideMainMenuUI()
+    {
+        foreach (GameObject item in _thingsToHide)
+        {
+            item.SetActive(false);
+        }
     }
 
     

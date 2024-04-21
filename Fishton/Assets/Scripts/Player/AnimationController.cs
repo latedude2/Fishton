@@ -18,6 +18,15 @@ public class AnimationController : MonoBehaviour
     private void OnFishingStateChanged(FishEncounterState NewState)
     {
         PlayAnimation(GetAnimationStateNumberFromState(NewState));
+        if(NewState == FishEncounterState.Finished || NewState == FishEncounterState.Failed || NewState == FishEncounterState.Succeeeded)
+        {
+            Invoke(nameof(ResetAnimationToIdle), 0.5f);
+        }
+    }
+
+    void ResetAnimationToIdle()
+    {
+        animator.SetInteger("FishingState", 0);
     }
     
     private int GetAnimationStateNumberFromState(FishEncounterState NewState)
@@ -39,6 +48,7 @@ public class AnimationController : MonoBehaviour
             case FishEncounterState.Succeeeded:
                 return 7;
             default:
+                Debug.Log("DEFAULT in the player animation");
                 return 0;
         }
     }
