@@ -12,8 +12,8 @@ public class Player : NetworkBehaviour
 
     public NetworkVariable<int> positionIndex = new NetworkVariable<int>(0);
 
-    public delegate void FishEncounterChangeHandler(FishEncounterState previousState, FishEncounterState newState);
-    public FishEncounterChangeHandler onFishEncounterChange { get; set; }
+    //public delegate void FishEncounterChangeHandler(FishEncounterState previousState, FishEncounterState newState);
+    //public FishEncounterChangeHandler onFishEncounterChange { get; set; }
 
     //public FishEncounterState currentState { get => _CurrentState.Value; set { _CurrentState.Value = value; } }
 
@@ -49,7 +49,7 @@ public class Player : NetworkBehaviour
 
     private void OnStateChanged(FishEncounterState previousValue, FishEncounterState newValue)
     {
-        onFishEncounterChange?.Invoke(previousValue, newValue);
+        GetComponent<EventManager>().OnFishingStateChanged?.Invoke(newValue);
     }
 
     public override void OnDestroy()
