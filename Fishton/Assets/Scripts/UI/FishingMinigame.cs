@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,6 +56,12 @@ public class FishingMinigame : MonoBehaviour
     [SerializeField]
     private float LosePointsSpeed = 3.0f;
 
+    [SerializeField]
+    private RectTransform WonPanel;
+
+    [SerializeField]
+    private RectTransform FishingContainer;
+
     public FishDefinition Fish { get; set; }
     public OnFishingMinigameFinishedDelegate OnGameFinished;
 
@@ -82,10 +89,13 @@ public class FishingMinigame : MonoBehaviour
     private float LastFishPositionUpdate;
     private float FishPositionUpdateWaitDuration;
     private float CurrentPoints;
+    private bool DidWin;
+    private float WonTime;
 
     private void Awake()
     {
         InitializeData();
+        WonPanel.gameObject.SetActive(false);
     }
 
     private void InitializeData()
@@ -98,6 +108,14 @@ public class FishingMinigame : MonoBehaviour
 
     private void Update()
     {
+        if(DidWin)
+        {
+            if(Input.GetMouseButtonDown(0) && Time.time - WonTime > 1.0f)
+            {
+                OnGameFinished.Invoke(true);
+            }
+            return;
+        }
         HandleAcceleration();
         UpdatePosition();
         SetPosition(HandlePosition, HandleRect, HandleSize);
@@ -189,6 +207,15 @@ public class FishingMinigame : MonoBehaviour
 
     private void HandleGameFinished(bool Won)
     {
+        if(Won)
+        {
+            DidWin = true;
+            WonPanel.gameObject.SetActive(true);
+            FishingContainer.gameObject.SetActive(false);
+            WonTime = Time.time;
+            return;
+        }
+        
         OnGameFinished.Invoke(Won);
     }
 }
