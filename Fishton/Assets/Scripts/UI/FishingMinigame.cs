@@ -8,7 +8,10 @@ public delegate void OnFishingMinigameFinishedDelegate(bool WonGame);
 public class FishingMinigame : MonoBehaviour
 {
     [SerializeField]
-    private Image Scrollbar;
+    private RectTransform Handle;
+
+    [SerializeField]
+    private float HandleSize = 0.3f;
 
     [SerializeField]
     private Image FishImage;
@@ -44,6 +47,9 @@ public class FishingMinigame : MonoBehaviour
     private float StartProgress = 0.5f;
 
     [SerializeField]
+    private float RequiredPoints = 50.0f;
+
+    [SerializeField]
     private float GainPointsSpeed = 2.0f;
 
     [SerializeField]
@@ -54,7 +60,7 @@ public class FishingMinigame : MonoBehaviour
 
     private bool ShouldUpdateFishPosition => Time.time >= LastFishPositionUpdate + FishPositionUpdateWaitDuration;
 
-    private RectTransform HandleRect => Scrollbar.rectTransform;
+    private RectTransform HandleRect => Handle;
     private float HandleMinPos => HandleRect.anchorMin.y;
     private float HandleMaxPos => HandleRect.anchorMax.y;
 
@@ -68,7 +74,6 @@ public class FishingMinigame : MonoBehaviour
         // Handle is above fish, but being overlapped
         HandleMaxPos > FishMinPos && HandleMinPos < FishMaxPos;
 
-    private float HandleSize;
     private float HandlePosition;
     private float FishPosition;
     
@@ -76,7 +81,6 @@ public class FishingMinigame : MonoBehaviour
     private float FishTargetPosition;
     private float LastFishPositionUpdate;
     private float FishPositionUpdateWaitDuration;
-    private float RequiredPoints;
     private float CurrentPoints;
 
     private void Awake()
@@ -86,10 +90,8 @@ public class FishingMinigame : MonoBehaviour
 
     private void InitializeData()
     {
-        HandleSize = GetHandleScaleFromDifficulty();
         HandlePosition = 0.5f;
         Velocity = 0;
-        RequiredPoints = GetRequiredPoints();
         CurrentPoints = RequiredPoints * StartProgress;
         SelectNewFishPosition();
     }
@@ -102,6 +104,7 @@ public class FishingMinigame : MonoBehaviour
 
         FishPosition = Mathf.Lerp(FishPosition, FishTargetPosition, FishSpeed * Time.deltaTime);
         SetPosition(FishPosition, FishRect, FishSize);
+        
 
         if(ShouldUpdateFishPosition)
             SelectNewFishPosition();
@@ -187,15 +190,5 @@ public class FishingMinigame : MonoBehaviour
     private void HandleGameFinished(bool Won)
     {
         OnGameFinished.Invoke(Won);
-    }
-
-    private float GetHandleScaleFromDifficulty()
-    {
-        return 0.3f;
-    }
-
-    private float GetRequiredPoints()
-    {
-        return 10;
     }
 }
