@@ -25,7 +25,7 @@ public class FishingLine : MonoBehaviour
 
     private void Update()
     {
-        if (_lineRenderer == null)
+        if (_lineRenderer == null || _trackingTargetStart == null || _trackingTargetEnd == null)
         {
             Destroy(gameObject);
             return;
