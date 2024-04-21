@@ -7,9 +7,6 @@ public class AnimationController : MonoBehaviour
     Animator animator;
     private EventManager Events { get; set; }
 
-    int AnimationState = 0;
-
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
