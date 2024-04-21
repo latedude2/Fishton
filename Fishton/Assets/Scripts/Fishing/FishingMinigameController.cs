@@ -11,6 +11,10 @@ public class FishingMinigameController : LocalPlayerComponent
     private FishingMinigame MinigameInstance;
 
 
+    [SerializeField]
+    private GameObject fish;
+
+
     protected override void MyAwake()
     {
         base.MyAwake();
@@ -27,13 +31,19 @@ public class FishingMinigameController : LocalPlayerComponent
     {
         MinigameInstance = Instantiate(MinigamePrefab);
         MinigameInstance.OnGameFinished += OnGameFinished;
+        MinigameInstance.OnReelFishIn += OnReelFishIn;
+    }
+
+    private void OnReelFishIn()
+    {
+        GameObject instancedFish = Instantiate(fish, new Vector3(0, 20, 0), Quaternion.identity);
+        instancedFish.GetComponent<AnimateCaughtFish>().CatchingPlayer = gameObject;
     }
 
     private void OnGameFinished(bool WonGame)
     {
         Destroy(MinigameInstance.gameObject);
         MinigameInstance = null;
-
         Events.OnFishingMinigameFinished.Invoke(WonGame);
     }
 }
