@@ -8,7 +8,7 @@ public class WaitForHookedEventHandler : CustomYieldInstruction
     {
         DidPlayerSucceed = false;
         StartTime = Time.time;
-        TimeToWait = 2f;
+        TimeToWait = 0.6f;
     }
 
     public bool DidPlayerSucceed { get; private set; }

@@ -39,7 +39,7 @@ public class Player : NetworkBehaviour
 
     private void OnStateChanged(FishEncounterState previousValue, FishEncounterState newValue)
     {
-        onFishEncounterChange(previousValue, newValue);
+        onFishEncounterChange?.Invoke(previousValue, newValue);
     }
 
     public override void OnDestroy()

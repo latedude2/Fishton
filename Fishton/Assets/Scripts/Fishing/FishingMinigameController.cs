@@ -30,5 +30,14 @@ public class FishingMinigameController : LocalPlayerComponent
     private void OnFishCaught()
     {
         MinigameInstance = Instantiate(MinigamePrefab);
+        MinigameInstance.OnGameFinished += OnGameFinished;
+    }
+
+    private void OnGameFinished(bool WonGame)
+    {
+        Destroy(MinigameInstance.gameObject);
+        MinigameInstance = null;
+
+        Events.OnFishingMinigameFinished.Invoke(WonGame);
     }
 }

@@ -9,7 +9,7 @@ public class LocalPlayerComponent : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         enabled = IsLocalPlayer;
-        
+
         if (enabled)
         {
             MyAwake();

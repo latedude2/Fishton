@@ -33,8 +33,9 @@ public class FishingStateColourer : MonoBehaviour
             case FishEncounterState.Idle:
                 return Color.yellow;
             case FishEncounterState.Hooked:
-                return new Color(1.0f, 165/255.0f, 0.0f);
             case FishEncounterState.Caught:
+                return new Color(1.0f, 165/255.0f, 0.0f);
+            case FishEncounterState.Succeeeded:
                 return Color.green;
             case FishEncounterState.Failed:
                 return Color.red;
