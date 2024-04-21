@@ -51,8 +51,8 @@ public class FishingWorldComponent : MonoBehaviour
         if ((NewState & FishEncounterState.Finished) == NewState)
         {
             //Delete the bob
-            //Destroy(_spawnedBobObject);
-            //Destroy(_fishingLine.gameObject);
+            Destroy(_spawnedBobObject);
+            Destroy(_fishingLine.gameObject);
         }
 
         if (NewState != FishEncounterState.Throwing)
@@ -62,6 +62,8 @@ public class FishingWorldComponent : MonoBehaviour
 
     private IEnumerator StartThrow()
     {
+        if(_spawnedBobObject)
+            Destroy(_spawnedBobObject);
         Vector3 PlayerPosition = transform.position;
         Vector3 HighPosition = PlayerPosition + Vector3.up * 5;
         Vector3 HighPositionOffset = HighPosition + transform.forward * PotentialHitRadius * 3.0f;
