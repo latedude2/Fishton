@@ -70,7 +70,7 @@ public class FishEncounter : MonoBehaviour
         Debug.Log("Fish Encounter Finished");
         yield return new WaitForSeconds(3);
         Events.OnFishEncounterFinished?.Invoke();
-
+        
         //Moved the destroy after the OnFinishEnounter event
         Destroy(this);
     }
