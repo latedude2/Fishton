@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a81b1f51b873544a0c63d6186167b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _CurrentState:
+  networkedFishingState:
     m_InternalValue: 0
   positionIndex:
     m_InternalValue: 0
@@ -230,6 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Audio: {fileID: 533900016601806918}
   FishCaught: {fileID: 8300000, guid: 64e462fee5be4ba44978bcd4464c24d1, type: 3}
+  FishPulled: {fileID: 8300000, guid: f008f900dfb1e84429d941757103897a, type: 3}
   FishHooked: {fileID: 6418180475301049370, guid: c65a0c2b28cd9b94c848649226e8283d,
     type: 2}
   FishFailed: {fileID: 8300000, guid: 5811a55adee86ef43b13b079fbaa8cce, type: 3}
