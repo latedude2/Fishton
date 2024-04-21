@@ -30,6 +30,15 @@ public class FishingWorldComponent : MonoBehaviour
         Events.OnFishingMinigameFinished += OnMinigameFinished;
     }
 
+    private void OnDestroy()
+    {
+        if (_spawnedBobObject != null)
+            Destroy(_spawnedBobObject);
+
+        if (_fishingLine.gameObject != null)
+            Destroy(_fishingLine.gameObject);
+    }
+
     private void OnMinigameFinished(bool DidSucceed)
     {
         //Delete the bob
