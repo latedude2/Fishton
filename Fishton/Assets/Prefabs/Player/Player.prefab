@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -7828375666521941692}
   - component: {fileID: 533900016601806918}
   - component: {fileID: 7715641669806943322}
+  - component: {fileID: 5255360951351122407}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -235,6 +236,19 @@ MonoBehaviour:
   StartFishing: {fileID: 8300000, guid: 43f6693d67d0b9e4b8eb37b1f8d9f65d, type: 3}
   MixerGroupForOthers: {fileID: 53641330269701348, guid: 4f0063c120b349d458062916249bd51c,
     type: 2}
+--- !u!114 &5255360951351122407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6639482331452022524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575ff454bb39c4246b263e6e0b8bcd19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fish: {fileID: 4526875851437929164, guid: 0a5cf3403fc81374b8aa59a4b3ba3118, type: 3}
 --- !u!1001 &1990303254930216150
 PrefabInstance:
   m_ObjectHideFlags: 0
