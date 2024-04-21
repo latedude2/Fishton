@@ -12,6 +12,7 @@ public class AudioPlayer : NetworkBehaviour
 
     public AudioSource Audio;
     public AudioClip FishCaught;
+    public AudioClip FishPulled;
     public AudioResource FishHooked;
     public AudioClip FishFailed;
     public AudioClip StartFishing;
@@ -29,7 +30,7 @@ public class AudioPlayer : NetworkBehaviour
 
     override public void OnNetworkSpawn()
     {
-        if(IsLocalPlayer)
+        if(!IsLocalPlayer)
         {
             Audio.outputAudioMixerGroup = MixerGroupForOthers;
         }
@@ -52,6 +53,8 @@ public class AudioPlayer : NetworkBehaviour
             case FishEncounterState.Hooked:
                 return FishHooked;
             case FishEncounterState.Caught:
+                return FishPulled;
+            case FishEncounterState.Succeeeded:
                 return FishCaught;
             case FishEncounterState.Failed:
                 return FishFailed;
