@@ -35,7 +35,7 @@ public class FishingWorldComponent : MonoBehaviour
         if (_spawnedBobObject != null)
             Destroy(_spawnedBobObject);
 
-        if (_fishingLine.gameObject != null)
+        if (_fishingLine != null)
             Destroy(_fishingLine.gameObject);
     }
 
