@@ -126,7 +126,8 @@ AudioSource:
   m_GameObject: {fileID: 6639482331452022524}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8370937121110699770, guid: 4f0063c120b349d458062916249bd51c,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -232,6 +233,8 @@ MonoBehaviour:
     type: 2}
   FishFailed: {fileID: 8300000, guid: 5811a55adee86ef43b13b079fbaa8cce, type: 3}
   StartFishing: {fileID: 8300000, guid: 43f6693d67d0b9e4b8eb37b1f8d9f65d, type: 3}
+  MixerGroupForOthers: {fileID: 53641330269701348, guid: 4f0063c120b349d458062916249bd51c,
+    type: 2}
 --- !u!1001 &1990303254930216150
 PrefabInstance:
   m_ObjectHideFlags: 0
