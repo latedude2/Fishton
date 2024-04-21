@@ -39,6 +39,7 @@ public class AnimationController : MonoBehaviour
             case FishEncounterState.Succeeeded:
                 return 7;
             default:
+                Debug.Log("DEFAULT in the player animation");
                 return 0;
         }
     }

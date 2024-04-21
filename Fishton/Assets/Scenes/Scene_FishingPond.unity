@@ -12139,8 +12139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94056cb95ac2a3141aacf339291075be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startTransform: {fileID: 0}
-  _endTransform: {fileID: 0}
+  _extendCurvature: 0
+  _smoothness: 10
 --- !u!4 &1111805441
 Transform:
   m_ObjectHideFlags: 0
