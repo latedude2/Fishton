@@ -6,7 +6,6 @@ using System;
 
 public class Player : NetworkBehaviour
 {
-
     public NetworkVariable<FishEncounterState> networkedFishingState = new NetworkVariable<FishEncounterState>(value: FishEncounterState.None, readPerm: NetworkVariableReadPermission.Everyone, writePerm: NetworkVariableWritePermission.Owner);
 
 
@@ -39,6 +38,14 @@ public class Player : NetworkBehaviour
         if (IsLocalPlayer == false)
         {
             networkedFishingState.OnValueChanged += OnStateChanged;
+        }
+        if(IsHost)
+        {
+            networkedFishingState.OnValueChanged += (FishEncounterState OldValue, FishEncounterState NewValue) => 
+            {
+                if(NewValue == FishEncounterState.Succeeeded)
+                    GameState.Instance.Increment();
+            };
         }
     }
 
