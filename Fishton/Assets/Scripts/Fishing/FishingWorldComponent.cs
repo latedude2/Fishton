@@ -27,6 +27,14 @@ public class FishingWorldComponent : MonoBehaviour
     {
         Events = EventManager.Get(gameObject);
         Events.OnFishingStateChanged += OnStateChanged;
+        Events.OnFishingMinigameFinished += OnMinigameFinished;
+    }
+
+    private void OnMinigameFinished(bool DidSucceed)
+    {
+        //Delete the bob
+        Destroy(_spawnedBobObject);
+        Destroy(_fishingLine.gameObject);
     }
 
     private void OnStateChanged(FishEncounterState NewState)
@@ -34,8 +42,8 @@ public class FishingWorldComponent : MonoBehaviour
         if ((NewState & FishEncounterState.Finished) == NewState)
         {
             //Delete the bob
-            Destroy(_spawnedBobObject);
-            Destroy(_fishingLine.gameObject);
+            //Destroy(_spawnedBobObject);
+            //Destroy(_fishingLine.gameObject);
         }
 
         if (NewState != FishEncounterState.Throwing)
