@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.furnyr.dissonity": {
+      "version": "https://github.com/Furnyr/Dissonity.git?path=/unity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "ed73a02bb0fb97879cf8c569c77e54364f929d49"
+    },
     "com.tsk.ide.vscode": {
       "version": "https://github.com/Chizaruu/com.tsk.ide.vscode.git#upm",
       "depth": 0,
