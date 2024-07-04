@@ -8,7 +8,7 @@ public class HostButtonHider : MonoBehaviour
 
     private void Start()
     {
-        _SetAllObjectsTo(false);
+        //_SetAllObjectsTo(false);
     }
 
     private void _SetAllObjectsTo(bool state)
