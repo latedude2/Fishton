@@ -4,6 +4,7 @@ on: [pull_request]
 
 jobs:
   buildForAllSupportedPlatforms:
+    project-path: 'Fishton'
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
