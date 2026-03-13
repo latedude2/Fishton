@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   buildForAllSupportedPlatforms:
-    project-path: Fishton
     name: Automated test
     runs-on: ubuntu-latest
     permissions: write-all
@@ -17,9 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          projectPath: Fishton
           fetch-depth: 0
       - uses: actions/cache@v4
         with:
+          projectPath: Fishton
           path: Library
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
@@ -28,4 +29,5 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          projectPath: Fishton
           githubToken: ${{ secrets.GITHUB_TOKEN }}

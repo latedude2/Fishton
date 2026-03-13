@@ -4,7 +4,6 @@ on: [pull_request]
 
 jobs:
   buildForAllSupportedPlatforms:
-    project-path: Fishton
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -18,10 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          projectPath: Fishton
           fetch-depth: 0
       - uses: actions/cache@v4
         with:
           path: Library
+          projectPath: Fishton
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
       
@@ -29,5 +30,6 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          projectPath: Fishton
           targetPlatform: ${{ matrix.targetPlatform }}
           allowDirtyBuild: true
