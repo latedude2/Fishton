@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   buildForAllSupportedPlatforms:
-    project-path: 'Fishton'
+    project-path: Fishton
     name: Automated test
     runs-on: ubuntu-latest
     permissions: write-all
